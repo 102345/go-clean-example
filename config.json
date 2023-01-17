@@ -1,0 +1,8 @@
+{   
+    "database": {
+      "url": "://postgres:scnfm@localhost:5432/devtodb"
+    },
+    "server": {
+      "port": "3000"
+    }
+}
