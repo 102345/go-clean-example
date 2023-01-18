@@ -7,14 +7,14 @@ import (
 func (repository repository) Delete(id uint64) error {
 	ctx := context.Background()
 
-	err := repository.db.QueryRow(
+	_, err := repository.db.Exec(
 		ctx,
 		"delete from product where id = $1",
 		id,
 	)
 
 	if err != nil {
-		return ctx.Err()
+		return err
 	}
 
 	return nil

@@ -28,5 +28,5 @@ func (service service) Update(response http.ResponseWriter, request *http.Reques
 		return
 	}
 
-	infrastructure.JSON(response, http.StatusCreated, product)
+	infrastructure.JSON(response, http.StatusOK, product)
 }
