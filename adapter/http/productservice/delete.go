@@ -12,7 +12,7 @@ func (service service) Delete(response http.ResponseWriter, request *http.Reques
 
 	parametros := mux.Vars(request)
 
-	id, erro := strconv.ParseUint(parametros["id"], 10, 64)
+	id, erro := strconv.ParseUint(parametros["product_id"], 10, 64)
 	if erro != nil {
 		infrastructure.Erro(response, http.StatusBadRequest, erro)
 		return

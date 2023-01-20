@@ -1,0 +1,26 @@
+mode: set
+github.com/marc/go-clean-example/core/dto/pagination.go:19.95,32.2 4 1
+github.com/marc/go-clean-example/core/dto/product.go:24.82,26.76 2 1
+github.com/marc/go-clean-example/core/dto/product.go:30.2,30.35 1 1
+github.com/marc/go-clean-example/core/dto/product.go:26.76,28.3 1 1
+github.com/marc/go-clean-example/core/dto/product.go:34.82,36.76 2 1
+github.com/marc/go-clean-example/core/dto/product.go:40.2,40.35 1 1
+github.com/marc/go-clean-example/core/dto/product.go:36.76,38.3 1 1
+github.com/marc/go-clean-example/adapter/postgres/productrepository/create.go:10.104,27.16 4 1
+github.com/marc/go-clean-example/adapter/postgres/productrepository/create.go:31.2,31.22 1 1
+github.com/marc/go-clean-example/adapter/postgres/productrepository/create.go:27.16,29.3 1 1
+github.com/marc/go-clean-example/adapter/postgres/productrepository/delete.go:7.54,16.16 3 1
+github.com/marc/go-clean-example/adapter/postgres/productrepository/delete.go:20.2,20.12 1 1
+github.com/marc/go-clean-example/adapter/postgres/productrepository/delete.go:16.16,18.3 1 1
+github.com/marc/go-clean-example/adapter/postgres/productrepository/fetch.go:12.104,27.2 6 1
+github.com/marc/go-clean-example/adapter/postgres/productrepository/fetch.go:59.2,62.8 1 1
+github.com/marc/go-clean-example/adapter/postgres/productrepository/fetch.go:27.2,33.17 2 1
+github.com/marc/go-clean-example/adapter/postgres/productrepository/fetch.go:37.3,37.19 1 1
+github.com/marc/go-clean-example/adapter/postgres/productrepository/fetch.go:33.17,35.4 1 1
+github.com/marc/go-clean-example/adapter/postgres/productrepository/fetch.go:37.19,48.4 3 1
+github.com/marc/go-clean-example/adapter/postgres/productrepository/fetch.go:51.2,54.17 2 1
+github.com/marc/go-clean-example/adapter/postgres/productrepository/fetch.go:54.17,56.4 1 1
+github.com/marc/go-clean-example/adapter/postgres/productrepository/new.go:13.62,17.2 1 1
+github.com/marc/go-clean-example/adapter/postgres/productrepository/update.go:10.104,23.16 4 1
+github.com/marc/go-clean-example/adapter/postgres/productrepository/update.go:27.2,32.22 5 1
+github.com/marc/go-clean-example/adapter/postgres/productrepository/update.go:23.16,25.3 1 1

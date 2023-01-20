@@ -22,5 +22,5 @@ func (service service) Fetch(response http.ResponseWriter, request *http.Request
 		return
 	}
 
-	infrastructure.JSON(response, http.StatusAccepted, products)
+	infrastructure.JSON(response, http.StatusOK, products)
 }

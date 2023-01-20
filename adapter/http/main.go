@@ -31,7 +31,7 @@ func main() {
 	router := mux.NewRouter()
 	router.Handle("/product", http.HandlerFunc(productService.Create)).Methods("POST")
 	router.Handle("/product/{id}", http.HandlerFunc(productService.Update)).Methods("PUT")
-	router.Handle("/product/{id}", http.HandlerFunc(productService.Delete)).Methods("DELETE")
+	router.Handle("/product/{product_id}", http.HandlerFunc(productService.Delete)).Methods("DELETE")
 	router.Handle("/product", http.HandlerFunc(productService.Fetch)).Queries(
 		"page", "{page}",
 		"itemsPerPage", "{itemsPerPage}",
