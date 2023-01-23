@@ -8,6 +8,14 @@ import (
 	infrastructure "github.com/marc/go-clean-example/infra-structure"
 )
 
+// @Summary Update a product
+// @Description Update a product
+// @Tags product
+// @Accept  json
+// @Produce  json
+// @Param product body dto.UpdateProductRequest true "product"
+// @Success 200 {object} domain.Product
+// @Router /product/{product_id} [put]
 func (service service) Update(response http.ResponseWriter, request *http.Request) {
 	productRequest, err := dto.FromJSONUpdateProductRequest(request.Body)
 

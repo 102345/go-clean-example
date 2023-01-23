@@ -10,6 +10,10 @@ import (
 	"github.com/marc/go-clean-example/adapter/postgres"
 	"github.com/marc/go-clean-example/di"
 	"github.com/spf13/viper"
+
+	httpSwagger "github.com/swaggo/http-swagger"
+
+	_ "github.com/marc/go-clean-example/adapter/http/docs"
 )
 
 func init() {
@@ -20,6 +24,14 @@ func init() {
 	}
 }
 
+// @title Clean GO API Docs
+// @version 1.0.0
+// @contact.name Marcilio Gomes
+// @license.name Apache 2.0
+// @license.url http://www.apache.org/licenses/LICENSE-2.0.html
+// @host localhost:port
+// @BasePath /
+
 func main() {
 	ctx := context.Background()
 	conn := postgres.GetConnection(ctx)
@@ -29,8 +41,9 @@ func main() {
 	productService := di.ConfigProductDI(conn)
 
 	router := mux.NewRouter()
+	router.PathPrefix("/swagger").Handler(httpSwagger.WrapHandler)
 	router.Handle("/product", http.HandlerFunc(productService.Create)).Methods("POST")
-	router.Handle("/product/{id}", http.HandlerFunc(productService.Update)).Methods("PUT")
+	router.Handle("/product/{product_id}", http.HandlerFunc(productService.Update)).Methods("PUT")
 	router.Handle("/product/{product_id}", http.HandlerFunc(productService.Delete)).Methods("DELETE")
 	router.Handle("/product", http.HandlerFunc(productService.Fetch)).Queries(
 		"page", "{page}",
