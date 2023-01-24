@@ -5,7 +5,7 @@ jobs:
     strategy:
       matrix:
         go-version: [1.18.x]
-        os: [ubuntu-latest]
+        os: [ubuntu-latest, macos-latest, windows-latest]
     runs-on: ${{ matrix.os }}
     steps:
     - name: Install Go
@@ -20,9 +20,8 @@ jobs:
       run: swag init -d adapter/http --parseDependency --parseInternal --parseDepth 2 -o adapter/http/docs
     - name: Test
       run: go mod tidy && go test ./... -coverprofile=coverage.txt -covermode=atomic
-
     - name: Upload coverage report
-      uses: codecov/codecov-action@v1.0.2
+      uses: codecov/codecov-action@v3.1.1
       with:
         token: 1a4b3441-a035-466f-ba5e-f9242c2ef121
         file: ./coverage.txt
