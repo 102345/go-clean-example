@@ -4,5 +4,9 @@
     },
     "server": {
       "port": "3000"
+    },
+    "tokenKey" :{
+      "secretKey":"TESTECHAVE"
     }
+    
 }

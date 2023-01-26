@@ -9,6 +9,7 @@ import (
 	"github.com/gorilla/mux"
 	"github.com/marc/go-clean-example/adapter/postgres"
 	"github.com/marc/go-clean-example/di"
+	"github.com/marc/go-clean-example/infra-structure/middlewares/authentication"
 	"github.com/spf13/viper"
 
 	httpSwagger "github.com/swaggo/http-swagger"
@@ -33,19 +34,38 @@ func init() {
 // @BasePath /
 
 func main() {
+
 	ctx := context.Background()
 	conn := postgres.GetConnection(ctx)
 	defer conn.Close()
+
+	router := configureRouters(conn)
+
+	port := viper.GetString("server.port")
+	log.Printf("LISTEN ON PORT: %v", port)
+	http.ListenAndServe(fmt.Sprintf(":%v", port), router)
+}
+
+func configureRouters(conn postgres.PoolInterface) *mux.Router {
 
 	postgres.RunMigrations()
 	productService := di.ConfigProductDI(conn)
 
 	router := mux.NewRouter()
+
 	router.PathPrefix("/swagger").Handler(httpSwagger.WrapHandler)
-	router.Handle("/product", http.HandlerFunc(productService.Create)).Methods("POST")
-	router.Handle("/product/{product_id}", http.HandlerFunc(productService.Update)).Methods("PUT")
-	router.Handle("/product/{product_id}", http.HandlerFunc(productService.Delete)).Methods("DELETE")
-	router.Handle("/product", http.HandlerFunc(productService.Fetch)).Queries(
+
+	router.Handle("/product",
+		http.HandlerFunc(authentication.Logger((authentication.Authenticate(productService.Create, false))))).Methods("POST")
+
+	router.Handle("/product/{product_id}",
+		http.HandlerFunc(authentication.Logger((authentication.Authenticate(productService.Update, false))))).Methods("PUT")
+
+	router.Handle("/product/{product_id}",
+		http.HandlerFunc(authentication.Logger((authentication.Authenticate(productService.Delete, true))))).Methods("DELETE")
+
+	router.Handle("/product",
+		http.HandlerFunc(authentication.Logger((authentication.Authenticate(productService.Fetch, false))))).Queries(
 		"page", "{page}",
 		"itemsPerPage", "{itemsPerPage}",
 		"descending", "{descending}",
@@ -53,7 +73,5 @@ func main() {
 		"search", "{search}",
 	).Methods("GET")
 
-	port := viper.GetString("server.port")
-	log.Printf("LISTEN ON PORT: %v", port)
-	http.ListenAndServe(fmt.Sprintf(":%v", port), router)
+	return router
 }
