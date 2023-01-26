@@ -13,14 +13,14 @@ import (
 )
 
 // CreateToken retorna um token assinado com as permissões do usuario
-func CreateToken(usuarioID uint64) (string, error) {
+func CreateToken(userID uint64) (string, error) {
 
-	permissoes := jwt.MapClaims{}
-	permissoes["authorized"] = true
-	permissoes["exp"] = time.Now().Add(time.Hour * 6).Unix()
-	permissoes["usuarioId"] = usuarioID
+	permissions := jwt.MapClaims{}
+	permissions["authorized"] = true
+	permissions["exp"] = time.Now().Add(time.Hour * 6).Unix()
+	permissions["usuarioId"] = userID
 
-	token := jwt.NewWithClaims(jwt.SigningMethodHS256, permissoes)
+	token := jwt.NewWithClaims(jwt.SigningMethodHS256, permissions)
 
 	return token.SignedString([]byte(viper.GetString("tokenKey.secretKey"))) //Secret
 
@@ -53,8 +53,8 @@ func ExtractUserID(r *http.Request) (uint64, error) {
 		return 0, erro
 	}
 
-	if permissoes, ok := token.Claims.(jwt.MapClaims); ok && token.Valid {
-		usuarioID, erro := strconv.ParseUint(fmt.Sprintf("%.0f", permissoes["usuarioId"]), 10, 64)
+	if permissions, ok := token.Claims.(jwt.MapClaims); ok && token.Valid {
+		usuarioID, erro := strconv.ParseUint(fmt.Sprintf("%.0f", permissions["usuarioId"]), 10, 64)
 		if erro != nil {
 			return 0, errors.New("Unexpected user extraction error!")
 		}
