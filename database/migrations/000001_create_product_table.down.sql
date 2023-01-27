@@ -1,1 +1,2 @@
 DROP TABLE IF EXISTS product;
+DROP TABLE IF EXISTS user_api;

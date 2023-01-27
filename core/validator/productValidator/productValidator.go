@@ -10,15 +10,15 @@ import (
 func ValidateInsert(productRequest *dto.CreateProductRequest) error {
 
 	if strings.Trim(productRequest.Description, " ") == "" {
-		return errors.New("Descrição do produto é obrigatório")
+		return errors.New("Product description is required")
 	}
 
 	if strings.Trim(productRequest.Name, "") == "" {
-		return errors.New("Nome do produto é obrigatório")
+		return errors.New("Product name is required")
 	}
 
 	if productRequest.Price <= 0 {
-		return errors.New("O preço do produto é obrigatório")
+		return errors.New("Product price is required")
 	}
 
 	return nil
@@ -28,19 +28,19 @@ func ValidateInsert(productRequest *dto.CreateProductRequest) error {
 func ValidateUpdate(productRequest *dto.UpdateProductRequest) error {
 
 	if productRequest.ID <= 0 {
-		return errors.New("O ID do produto é obrigatório")
+		return errors.New("Product ID is required")
 	}
 
 	if strings.Trim(productRequest.Description, " ") == "" {
-		return errors.New("Descrição do produto é obrigatório")
+		return errors.New("Product description is required")
 	}
 
 	if strings.Trim(productRequest.Name, "") == "" {
-		return errors.New("Nome do produto é obrigatório")
+		return errors.New("Product name is required")
 	}
 
 	if productRequest.Price <= 0 {
-		return errors.New("O preço do produto é obrigatório")
+		return errors.New("Product price is required")
 	}
 
 	return nil

@@ -49,7 +49,9 @@ func main() {
 func configureRouters(conn postgres.PoolInterface) *mux.Router {
 
 	postgres.RunMigrations()
+
 	productService := di.ConfigProductDI(conn)
+	userService := di.ConfigUserDI(conn)
 
 	router := mux.NewRouter()
 
@@ -72,6 +74,9 @@ func configureRouters(conn postgres.PoolInterface) *mux.Router {
 		"sort", "{sort}",
 		"search", "{search}",
 	).Methods("GET")
+
+	router.Handle("/user",
+		http.HandlerFunc(authentication.Logger((authentication.Authenticate(userService.Create, false))))).Methods("POST")
 
 	return router
 }

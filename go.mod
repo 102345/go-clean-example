@@ -11,6 +11,7 @@ require (
 	github.com/jackc/pgx/v4 v4.17.2
 	github.com/spf13/viper v1.14.0
 	github.com/stretchr/testify v1.8.1
+	github.com/swaggo/swag v1.8.1
 )
 
 require (
@@ -22,12 +23,12 @@ require (
 	github.com/josharian/intern v1.0.0 // indirect
 	github.com/mailru/easyjson v0.7.6 // indirect
 	github.com/swaggo/files v0.0.0-20220610200504-28940afbdbfe // indirect
-	github.com/swaggo/swag v1.8.1 // indirect
 	golang.org/x/net v0.5.0 // indirect
 	golang.org/x/tools v0.1.12 // indirect
 )
 
 require (
+	github.com/badoux/checkmail v1.2.1
 	github.com/bxcodec/faker/v3 v3.8.1
 	github.com/davecgh/go-spew v1.1.1 // indirect
 	github.com/dgrijalva/jwt-go v3.2.0+incompatible
@@ -56,7 +57,7 @@ require (
 	github.com/subosito/gotenv v1.4.2 // indirect
 	github.com/swaggo/http-swagger v1.3.3
 	go.uber.org/atomic v1.10.0 // indirect
-	golang.org/x/crypto v0.5.0 // indirect
+	golang.org/x/crypto v0.5.0
 	golang.org/x/sys v0.4.0 // indirect
 	golang.org/x/text v0.6.0 // indirect
 	gopkg.in/ini.v1 v1.67.0 // indirect
