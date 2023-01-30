@@ -16,7 +16,7 @@ type CreateUserRequest struct {
 
 // UpdateUserRequest is an representation request body to update a User
 type UpdateUserRequest struct {
-	ID       int32     `json: idUser`
+	ID       int32     `json: id`
 	Name     string    `json:name,omitempty`
 	Email    string    `json:email,omitempty`
 	Password string    `json:password,omitempty`

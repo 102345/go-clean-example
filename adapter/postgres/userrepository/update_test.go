@@ -27,7 +27,7 @@ func setupUpdate() (dto.UpdateUserRequest, domain.User, pgxmock.PgxPoolIface) {
 func TestUpdate(t *testing.T) {
 	fakeUserRequest, _, mock := setupUpdate()
 	defer mock.Close()
-	mock.ExpectExec(regexp.QuoteMeta("Update user_api set name = $2, email = $3,password = $4 where id = $1")).WithArgs(
+	mock.ExpectExec(regexp.QuoteMeta("Update user_api set name = $2, email = $3, password= $4 where id = $1")).WithArgs(
 		fakeUserRequest.ID,
 		fakeUserRequest.Name,
 		fakeUserRequest.Email,
