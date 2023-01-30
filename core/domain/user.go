@@ -9,11 +9,11 @@ import (
 
 // User is entity of table product database column
 type User struct {
-	IDUser   int32     `json: idUser,omitempty`
-	Name     string    `json:name,omitempty`
-	Email    string    `json:email,omitempty`
-	Password string    `json:password,omitempty`
-	CreateAt time.Time `json:createdAt,omitempty`
+	ID        int32     `json: id`
+	Name      string    `json:name`
+	Email     string    `json:email`
+	Password  string    `json:password`
+	CreatedAt time.Time `json:createdAt`
 }
 
 // UserService is a contract of http adapter layer

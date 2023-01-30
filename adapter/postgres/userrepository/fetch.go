@@ -1,4 +1,4 @@
-package productrepository
+package userrepository
 
 import (
 	"context"
@@ -11,20 +11,18 @@ import (
 
 func (repository repository) Fetch(pagination *dto.PaginationRequestParms) (*domain.Pagination, error) {
 	ctx := context.Background()
-	products := []domain.Product{}
+	users := []domain.User{}
 	total := int32(0)
 
-	query, queryCount, _ := paginate.Paginate("SELECT * FROM product").
+	query, queryCount, _ := paginate.Paginate("SELECT * FROM user_api").
 		Page(pagination.Page).
 		Desc(pagination.Descending).
 		Sort(pagination.Sort).
 		RowsPerPage(pagination.ItemsPerPage).
-		SearchBy(pagination.Search, "name", "description").
+		SearchBy(pagination.Search, "name", "email").
 		Query()
 
 	log.Printf("Query formada: %s", *query)
-
-	log.Printf("QueryCount formada: %s", *queryCount)
 
 	{
 		rows, err := repository.db.Query(
@@ -33,20 +31,22 @@ func (repository repository) Fetch(pagination *dto.PaginationRequestParms) (*dom
 		)
 
 		if err != nil {
+			log.Printf("Error Query in repository User: %s", err)
 			return nil, err
 		}
 
 		for rows.Next() {
-			product := domain.Product{}
+			user := domain.User{}
 
 			rows.Scan(
-				&product.ID,
-				&product.Name,
-				&product.Price,
-				&product.Description,
+				&user.ID,
+				&user.Name,
+				&user.Email,
+				&user.Password,
+				&user.CreatedAt,
 			)
 
-			products = append(products, product)
+			users = append(users, user)
 		}
 	}
 
@@ -54,12 +54,13 @@ func (repository repository) Fetch(pagination *dto.PaginationRequestParms) (*dom
 		err := repository.db.QueryRow(ctx, *queryCount).Scan(&total)
 
 		if err != nil {
+			log.Printf("Error Query Row in repository User: %s", err)
 			return nil, err
 		}
 	}
 
 	return &domain.Pagination{
-		Items: products,
+		Items: users,
 		Total: total,
 	}, nil
 }

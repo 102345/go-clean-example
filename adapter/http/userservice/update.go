@@ -10,45 +10,45 @@ import (
 	"github.com/marc/go-clean-example/infra-structure/middlewares/security"
 )
 
-// @Summary Create new User
-// @Description Create new User
+// @Summary Update a User
+// @Description Update a User
 // @Tags user
 // @Accept  json
 // @Produce  json
-// @Param product body dto.CreateUserRequest true "user"
-// @Success 201 {object} domain.User
-// @Router /user [post]
-func (service service) Create(response http.ResponseWriter, request *http.Request) {
+// @Param product body dto.UpdateUserRequest true "user"
+// @Success 200 {object} domain.User
+// @Router /user [put]
+func (service service) Update(response http.ResponseWriter, request *http.Request) {
 
-	userRequest, err := dto.FromJSONCreateUserRequest(request.Body)
+	userRequest, err := dto.FromJSONUpdateUserRequest(request.Body)
 
 	if err != nil {
 		infrastructure.Erro(response, http.StatusBadRequest, err)
 		return
 	}
 
-	if erro := uservalidator.ValidateUserInsert(userRequest); erro != nil {
+	if erro := uservalidator.ValidateUserUpdate(userRequest); erro != nil {
 		infrastructure.Erro(response, http.StatusBadRequest, erro)
 		return
 	}
 
-	erro := service.formatUser(userRequest)
+	erro := service.formatUserUpdate(userRequest)
 	if erro != nil {
 		infrastructure.Erro(response, http.StatusInternalServerError, erro)
 		return
 	}
 
-	user, err := service.usecase.Create(userRequest)
+	user, err := service.usecase.Update(userRequest)
 
 	if err != nil {
 		infrastructure.Erro(response, http.StatusInternalServerError, err)
 		return
 	}
 
-	infrastructure.JSON(response, http.StatusCreated, user)
+	infrastructure.JSON(response, http.StatusOK, user)
 }
 
-func (service) formatUser(userRequest *dto.CreateUserRequest) error {
+func (service) formatUserUpdate(userRequest *dto.UpdateUserRequest) error {
 
 	passwordHash, erro := security.Hash(userRequest.Password)
 	if erro != nil {

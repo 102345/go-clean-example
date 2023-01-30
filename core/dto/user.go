@@ -8,15 +8,15 @@ import (
 
 // CreateProductRequest is an representation request body to create a new User
 type CreateUserRequest struct {
-	Name     string    `json:name,omitempty`
-	Email    string    `json:email,omitempty`
-	Password string    `json:password,omitempty`
-	CreateAt time.Time `json:createdAt,omitempty`
+	Name     string    `json:name`
+	Email    string    `json:email`
+	Password string    `json:password`
+	CreateAt time.Time `json:createdAt`
 }
 
 // UpdateUserRequest is an representation request body to update a User
 type UpdateUserRequest struct {
-	IDUser   int32     `json: idUser,omitempty`
+	ID       int32     `json: idUser`
 	Name     string    `json:name,omitempty`
 	Email    string    `json:email,omitempty`
 	Password string    `json:password,omitempty`

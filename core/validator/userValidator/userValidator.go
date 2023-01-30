@@ -32,7 +32,7 @@ func ValidateUserInsert(userRequest *dto.CreateUserRequest) error {
 
 func ValidateUserUpdate(userRequest *dto.UpdateUserRequest) error {
 
-	if userRequest.IDUser <= 0 {
+	if userRequest.ID <= 0 {
 		return errors.New("User ID is required")
 	}
 

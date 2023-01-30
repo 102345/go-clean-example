@@ -21,11 +21,11 @@ func (repository repository) Create(userRequest *dto.CreateUserRequest) (*domain
 		userRequest.Email,
 		userRequest.Password,
 	).Scan(
-		&user.IDUser,
+		&user.ID,
 		&user.Name,
 		&user.Email,
 		&user.Password,
-		&user.CreateAt,
+		&user.CreatedAt,
 	)
 
 	if err != nil {
