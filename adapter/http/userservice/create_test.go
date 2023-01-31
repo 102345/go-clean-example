@@ -30,10 +30,15 @@ func setupCreate(t *testing.T) (dto.CreateUserRequest, domain.User, *gomock.Cont
 }
 
 func TestCreate(t *testing.T) {
+
 	fakeUserRequest, fakeUser, mock := setupCreate(t)
 
+	//passwordHash, _ := security.Hash("password")
+
 	fakeUserRequest.Email = "teste@teste.com"
+	//fakeUserRequest.Password = string(passwordHash)
 	fakeUser.Email = "teste@teste.com"
+	//fakeUser.Password = string(passwordHash)
 
 	defer mock.Finish()
 	mockUserUseCase := mocks.NewMockUserUseCase(mock)

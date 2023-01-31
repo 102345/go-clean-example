@@ -72,6 +72,18 @@ func (mr *MockUserServiceMockRecorder) Fetch(response, request interface{}) *gom
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "Fetch", reflect.TypeOf((*MockUserService)(nil).Fetch), response, request)
 }
 
+// Login mocks base method.
+func (m *MockUserService) Login(response http.ResponseWriter, request *http.Request) {
+	m.ctrl.T.Helper()
+	m.ctrl.Call(m, "Login", response, request)
+}
+
+// Login indicates an expected call of Login.
+func (mr *MockUserServiceMockRecorder) Login(response, request interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "Login", reflect.TypeOf((*MockUserService)(nil).Login), response, request)
+}
+
 // Update mocks base method.
 func (m *MockUserService) Update(response http.ResponseWriter, request *http.Request) {
 	m.ctrl.T.Helper()
@@ -149,6 +161,21 @@ func (m *MockUserUseCase) Fetch(paginationRequest *dto.PaginationRequestParms) (
 func (mr *MockUserUseCaseMockRecorder) Fetch(paginationRequest interface{}) *gomock.Call {
 	mr.mock.ctrl.T.Helper()
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "Fetch", reflect.TypeOf((*MockUserUseCase)(nil).Fetch), paginationRequest)
+}
+
+// SearchByEmail mocks base method.
+func (m *MockUserUseCase) SearchByEmail(email string) (domain.User, error) {
+	m.ctrl.T.Helper()
+	ret := m.ctrl.Call(m, "SearchByEmail", email)
+	ret0, _ := ret[0].(domain.User)
+	ret1, _ := ret[1].(error)
+	return ret0, ret1
+}
+
+// SearchByEmail indicates an expected call of SearchByEmail.
+func (mr *MockUserUseCaseMockRecorder) SearchByEmail(email string) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "SearchByEmail", reflect.TypeOf((*MockUserUseCase)(nil).SearchByEmail), email)
 }
 
 // Update mocks base method.
@@ -231,6 +258,21 @@ func (m *MockUserRepository) Fetch(paginationRequest *dto.PaginationRequestParms
 func (mr *MockUserRepositoryMockRecorder) Fetch(paginationRequest interface{}) *gomock.Call {
 	mr.mock.ctrl.T.Helper()
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "Fetch", reflect.TypeOf((*MockUserRepository)(nil).Fetch), paginationRequest)
+}
+
+// SearchByEmail mocks base method.
+func (m *MockUserRepository) SearchByEmail(email string) (domain.User, error) {
+	m.ctrl.T.Helper()
+	ret := m.ctrl.Call(m, "SearchByEmail", email)
+	ret0, _ := ret[0].(domain.User)
+	ret1, _ := ret[1].(error)
+	return ret0, ret1
+}
+
+// SearchByEmail indicates an expected call of SearchByEmail.
+func (mr *MockUserRepositoryMockRecorder) SearchByEmail(email string) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "SearchByEmail", reflect.TypeOf((*MockUserRepository)(nil).SearchByEmail), email)
 }
 
 // Update mocks base method.

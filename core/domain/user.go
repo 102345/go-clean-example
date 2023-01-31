@@ -16,12 +16,19 @@ type User struct {
 	CreatedAt time.Time `json:createdAt`
 }
 
+// AuthenticationData is the entity that stores the authentication data
+type AuthenticationData struct {
+	ID    string `json:"id"`
+	Token string `json:"token"`
+}
+
 // UserService is a contract of http adapter layer
 type UserService interface {
 	Create(response http.ResponseWriter, request *http.Request)
 	Update(response http.ResponseWriter, request *http.Request)
 	Delete(response http.ResponseWriter, request *http.Request)
 	Fetch(response http.ResponseWriter, request *http.Request)
+	Login(response http.ResponseWriter, request *http.Request)
 }
 
 // ProductUseCase is a contract of business rule layer
@@ -30,6 +37,7 @@ type UserUseCase interface {
 	Update(userRequest *dto.UpdateUserRequest) (*User, error)
 	Delete(id uint64) error
 	Fetch(paginationRequest *dto.PaginationRequestParms) (*Pagination, error)
+	SearchByEmail(email string) (User, error)
 }
 
 // UserRepository is a contract of database connection adapter layer
@@ -38,4 +46,5 @@ type UserRepository interface {
 	Update(userRequest *dto.UpdateUserRequest) (*User, error)
 	Delete(id uint64) error
 	Fetch(paginationRequest *dto.PaginationRequestParms) (*Pagination, error)
+	SearchByEmail(email string) (User, error)
 }
