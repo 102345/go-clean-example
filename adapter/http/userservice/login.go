@@ -38,11 +38,7 @@ func (service service) Login(response http.ResponseWriter, request *http.Request
 		return
 	}
 
-	token, err := authentication.CreateToken(uint64(userDatabase.ID))
-	if err != nil {
-		infrastructure.Erro(response, http.StatusInternalServerError, err)
-		return
-	}
+	token, _ := authentication.CreateToken(uint64(userDatabase.ID))
 
 	userID := strconv.FormatUint(uint64(userDatabase.ID), 10)
 

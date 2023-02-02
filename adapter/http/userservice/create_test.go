@@ -7,6 +7,7 @@ import (
 	"net/http/httptest"
 	"strings"
 	"testing"
+	"time"
 
 	"github.com/bxcodec/faker/v3"
 	"github.com/golang/mock/gomock"
@@ -14,6 +15,7 @@ import (
 	"github.com/marc/go-clean-example/core/domain"
 	"github.com/marc/go-clean-example/core/domain/mocks"
 	"github.com/marc/go-clean-example/core/dto"
+	"github.com/marc/go-clean-example/infra-structure/middlewares/security"
 )
 
 func setupCreate(t *testing.T) (dto.CreateUserRequest, domain.User, *gomock.Controller) {
@@ -33,12 +35,13 @@ func TestCreate(t *testing.T) {
 
 	fakeUserRequest, fakeUser, mock := setupCreate(t)
 
-	//passwordHash, _ := security.Hash("password")
+	passwordHash, _ := security.Hash("1234567909090tueyueyeye")
 
 	fakeUserRequest.Email = "teste@teste.com"
-	//fakeUserRequest.Password = string(passwordHash)
-	fakeUser.Email = "teste@teste.com"
-	//fakeUser.Password = string(passwordHash)
+	fakeUser.Password = string(passwordHash)
+	fakeUser.CreatedAt = time.Now()
+	fakeUserRequest.Password = fakeUser.Password
+	fakeUserRequest.CreateAt = fakeUser.CreatedAt
 
 	defer mock.Finish()
 	mockUserUseCase := mocks.NewMockUserUseCase(mock)

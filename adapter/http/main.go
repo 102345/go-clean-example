@@ -58,10 +58,10 @@ func configureRouters(conn postgres.PoolInterface) *mux.Router {
 	router.PathPrefix("/swagger").Handler(httpSwagger.WrapHandler)
 
 	router.Handle("/product",
-		http.HandlerFunc(authentication.Logger((authentication.Authenticate(productService.Create, false))))).Methods("POST")
+		http.HandlerFunc(authentication.Logger((authentication.Authenticate(productService.Create, true))))).Methods("POST")
 
 	router.Handle("/product/{product_id}",
-		http.HandlerFunc(authentication.Logger((authentication.Authenticate(productService.Update, false))))).Methods("PUT")
+		http.HandlerFunc(authentication.Logger((authentication.Authenticate(productService.Update, true))))).Methods("PUT")
 
 	router.Handle("/product/{product_id}",
 		http.HandlerFunc(authentication.Logger((authentication.Authenticate(productService.Delete, true))))).Methods("DELETE")
@@ -80,11 +80,11 @@ func configureRouters(conn postgres.PoolInterface) *mux.Router {
 	router.Handle("/login",
 		http.HandlerFunc(authentication.Logger((authentication.Authenticate(userService.Login, false))))).Methods("POST")
 	router.Handle("/user/{user_id}",
-		http.HandlerFunc(authentication.Logger((authentication.Authenticate(userService.Update, false))))).Methods("PUT")
+		http.HandlerFunc(authentication.Logger((authentication.Authenticate(userService.Update, true))))).Methods("PUT")
 	router.Handle("/user/{user_id}",
-		http.HandlerFunc(authentication.Logger((authentication.Authenticate(userService.Delete, false))))).Methods("DELETE")
+		http.HandlerFunc(authentication.Logger((authentication.Authenticate(userService.Delete, true))))).Methods("DELETE")
 	router.Handle("/user",
-		http.HandlerFunc(authentication.Logger((authentication.Authenticate(userService.Fetch, false))))).Queries(
+		http.HandlerFunc(authentication.Logger((authentication.Authenticate(userService.Fetch, true))))).Queries(
 		"page", "{page}",
 		"itemsPerPage", "{itemsPerPage}",
 		"descending", "{descending}",

@@ -2,6 +2,7 @@ package userrepository
 
 import (
 	"context"
+	"log"
 
 	"github.com/marc/go-clean-example/core/domain"
 )
@@ -12,11 +13,12 @@ func (repository repository) SearchByEmail(email string) (domain.User, error) {
 
 	row, erro := repository.db.Query(
 		ctx,
-		"select id, password from user_api where email = ?",
+		"select id, password from user_api where email = $1",
 		email,
 	)
 
 	if erro != nil {
+		log.Printf("Error database : %s", erro)
 		return domain.User{}, erro
 	}
 

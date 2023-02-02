@@ -9,11 +9,11 @@ import (
 
 // User is entity of table product database column
 type User struct {
-	ID        int32     `json: id`
-	Name      string    `json:name`
-	Email     string    `json:email`
-	Password  string    `json:password`
-	CreatedAt time.Time `json:createdAt`
+	ID        int32     `json: id,omitempty`
+	Name      string    `json:name,omitempty`
+	Email     string    `json:email,omitempty`
+	Password  string    `json:password,omitempty`
+	CreatedAt time.Time `json:createdAt,omitempty`
 }
 
 // AuthenticationData is the entity that stores the authentication data

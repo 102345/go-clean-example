@@ -61,7 +61,7 @@ func TestFetch(t *testing.T) {
 	}
 }
 
-func TestFetch_PorductError(t *testing.T) {
+func TestFetch_ProductError(t *testing.T) {
 	fakePaginationRequestParams, _, mock := setupFetch(t)
 	defer mock.Finish()
 	mockUserUseCase := mocks.NewMockUserUseCase(mock)

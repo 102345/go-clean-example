@@ -7,17 +7,17 @@ import (
 
 // CreateProductRequest is an representation request body to create a new Product
 type CreateProductRequest struct {
-	Name        string  `json:"name"`
-	Price       float32 `json:"price"`
-	Description string  `json:"description"`
+	Name        string  `json:"name,omitempty"`
+	Price       float32 `json:"price,omitempty"`
+	Description string  `json:"description,omitempty"`
 }
 
 // UpdateProductRequest is an representation request body to update a Product
 type UpdateProductRequest struct {
-	ID          int32   `json:"id"`
-	Name        string  `json:"name"`
-	Price       float32 `json:"price"`
-	Description string  `json:"description"`
+	ID          int32   `json:"id,omitempty"`
+	Name        string  `json:"name,omitempty"`
+	Price       float32 `json:"price,omitempty"`
+	Description string  `json:"description,omitempty"`
 }
 
 // FromJSONCreateProductRequest converts json body request to a CreateProductRequest struct
