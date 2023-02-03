@@ -1,5 +1,12 @@
 basePath: /
 definitions:
+  domain.AuthenticationData:
+    properties:
+      id:
+        type: string
+      token:
+        type: string
+    type: object
   domain.Pagination:
     properties:
       items: {}
@@ -17,6 +24,19 @@ definitions:
       price:
         type: number
     type: object
+  domain.User:
+    properties:
+      createdAt:
+        type: string
+      email:
+        type: string
+      id:
+        type: integer
+      name:
+        type: string
+      password:
+        type: string
+    type: object
   dto.CreateProductRequest:
     properties:
       description:
@@ -25,6 +45,17 @@ definitions:
         type: string
       price:
         type: number
+    type: object
+  dto.CreateUserRequest:
+    properties:
+      createAt:
+        type: string
+      email:
+        type: string
+      name:
+        type: string
+      password:
+        type: string
     type: object
   dto.UpdateProductRequest:
     properties:
@@ -37,6 +68,19 @@ definitions:
       price:
         type: number
     type: object
+  dto.UpdateUserRequest:
+    properties:
+      createAt:
+        type: string
+      email:
+        type: string
+      id:
+        type: integer
+      name:
+        type: string
+      password:
+        type: string
+    type: object
 host: localhost:port
 info:
   contact:
@@ -47,6 +91,28 @@ info:
   title: Clean GO API Docs
   version: 1.0.0
 paths:
+  /login:
+    post:
+      consumes:
+      - application/json
+      description: Login user with crendencials return token session
+      parameters:
+      - description: user
+        in: body
+        name: user
+        required: true
+        schema:
+          $ref: '#/definitions/domain.User'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/domain.AuthenticationData'
+      summary: Login user
+      tags:
+      - user
   /product:
     get:
       consumes:
@@ -150,4 +216,107 @@ paths:
       summary: Update a product
       tags:
       - product
+  /user:
+    get:
+      consumes:
+      - application/json
+      description: Fetch users with server pagination
+      parameters:
+      - description: 1,2
+        in: query
+        name: sort
+        required: true
+        type: string
+      - description: true,false
+        in: query
+        name: descending
+        required: true
+        type: string
+      - description: "1"
+        in: query
+        name: page
+        required: true
+        type: integer
+      - description: "10"
+        in: query
+        name: itemsPerPage
+        required: true
+        type: integer
+      - description: value_parameter
+        in: query
+        name: search
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/domain.Pagination'
+      summary: Fetch users with server pagination
+      tags:
+      - user
+    post:
+      consumes:
+      - application/json
+      description: Create new User
+      parameters:
+      - description: user
+        in: body
+        name: user
+        required: true
+        schema:
+          $ref: '#/definitions/dto.CreateUserRequest'
+      produces:
+      - application/json
+      responses:
+        "201":
+          description: Created
+          schema:
+            $ref: '#/definitions/domain.User'
+      summary: Create new User
+      tags:
+      - user
+    put:
+      consumes:
+      - application/json
+      description: Update a User
+      parameters:
+      - description: user
+        in: body
+        name: user
+        required: true
+        schema:
+          $ref: '#/definitions/dto.UpdateUserRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/domain.User'
+      summary: Update a User
+      tags:
+      - user
+  /user/{user_id}:
+    delete:
+      consumes:
+      - application/json
+      description: Delete a user
+      parameters:
+      - description: "1"
+        in: query
+        name: user_id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "204":
+          description: No Content
+          schema:
+            $ref: '#/definitions/domain.User'
+      summary: Delete a user
+      tags:
+      - user
 swagger: "2.0"

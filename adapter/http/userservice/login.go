@@ -12,6 +12,14 @@ import (
 	"github.com/marc/go-clean-example/infra-structure/middlewares/security"
 )
 
+// @Summary Login user
+// @Description Login user with crendencials return token session
+// @Tags user
+// @Accept  json
+// @Produce  json
+// @Param user body domain.User true "user"
+// @Success 200 {object} domain.AuthenticationData
+// @Router /login [post]
 func (service service) Login(response http.ResponseWriter, request *http.Request) {
 
 	bodyRequest, err := ioutil.ReadAll(request.Body)

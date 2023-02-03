@@ -15,7 +15,7 @@ import (
 // @Tags user
 // @Accept  json
 // @Produce  json
-// @Param product body dto.UpdateUserRequest true "user"
+// @Param user body dto.UpdateUserRequest true "user"
 // @Success 200 {object} domain.User
 // @Router /user [put]
 func (service service) Update(response http.ResponseWriter, request *http.Request) {

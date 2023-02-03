@@ -15,7 +15,7 @@ import (
 // @Tags user
 // @Accept  json
 // @Produce  json
-// @Param product body dto.CreateUserRequest true "user"
+// @Param user body dto.CreateUserRequest true "user"
 // @Success 201 {object} domain.User
 // @Router /user [post]
 func (service service) Create(response http.ResponseWriter, request *http.Request) {

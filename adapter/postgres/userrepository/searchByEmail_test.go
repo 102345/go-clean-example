@@ -57,9 +57,8 @@ func TestSearchByEmail_QueryError(t *testing.T) {
 
 	email := "teste@teste.com"
 
-	sql := fmt.Sprintf("SELECT id, password FROM where user_api where email ='%v'", email)
-
-	mock.ExpectQuery(sql).
+	mock.ExpectQuery("select id, password from user_api where email = \\$1").
+		WithArgs(email).
 		WillReturnError(fmt.Errorf("ANY QUERY ERROR"))
 
 	sut := userrepository.New(mock)
