@@ -9,10 +9,12 @@ import (
 	"github.com/marc/go-clean-example/core/dto"
 )
 
-func (repository repository) Fetch(pagination *dto.PaginationRequestParms) (*domain.Pagination, error) {
+func (repository repository) Fetch(pagination *dto.PaginationRequestParms) (*domain.PaginationUsers, error) {
 	ctx := context.Background()
 	users := []domain.User{}
-	total := int32(0)
+	pageData := domain.Page{}
+	pageData.PageNumber = int32(pagination.Page)
+	pageData.Quantity = int32(pagination.ItemsPerPage)
 
 	query, queryCount, _ := paginate.Paginate("SELECT * FROM user_api").
 		Page(pagination.Page).
@@ -51,7 +53,7 @@ func (repository repository) Fetch(pagination *dto.PaginationRequestParms) (*dom
 	}
 
 	{
-		err := repository.db.QueryRow(ctx, *queryCount).Scan(&total)
+		err := repository.db.QueryRow(ctx, *queryCount).Scan(&pageData.Total)
 
 		if err != nil {
 			log.Printf("Error Query Row in repository User: %s", err)
@@ -59,8 +61,8 @@ func (repository repository) Fetch(pagination *dto.PaginationRequestParms) (*dom
 		}
 	}
 
-	return &domain.Pagination{
-		Items: users,
-		Total: total,
+	return &domain.PaginationUsers{
+		Users: users,
+		Page:  pageData,
 	}, nil
 }

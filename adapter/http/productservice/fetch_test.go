@@ -36,7 +36,7 @@ func TestFetch(t *testing.T) {
 	mockProductUseCase := mocks.NewMockProductUseCase(mock)
 	mockProductUseCase.EXPECT().Fetch(&fakePaginationRequestParams).Return(&domain.Pagination{
 		Items: []domain.Product{fakeProduct},
-		Total: 1,
+		Page:  domain.Page{},
 	}, nil)
 
 	sut := productservice.New(mockProductUseCase)

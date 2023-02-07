@@ -6,6 +6,7 @@ import (
 	"log"
 	"net/http"
 
+	"github.com/gorilla/handlers"
 	"github.com/gorilla/mux"
 	"github.com/marc/go-clean-example/adapter/postgres"
 	"github.com/marc/go-clean-example/di"
@@ -41,9 +42,14 @@ func main() {
 
 	router := configureRouters(conn)
 
+	credentials := handlers.AllowCredentials()
+	methods := handlers.AllowedMethods([]string{"POST", "PUT", "DELETE", "GET"})
+	//ttl := handlers.MaxAge(3600)
+	origins := handlers.AllowedOrigins([]string{"*"})
+
 	port := viper.GetString("server.port")
 	log.Printf("LISTEN ON PORT: %v", port)
-	http.ListenAndServe(fmt.Sprintf(":%v", port), router)
+	http.ListenAndServe(fmt.Sprintf(":%v", port), handlers.CORS(credentials, methods, origins)(router))
 }
 
 func configureRouters(conn postgres.PoolInterface) *mux.Router {

@@ -149,10 +149,10 @@ func (mr *MockUserUseCaseMockRecorder) Delete(id uint64) *gomock.Call {
 }
 
 // Fetch mocks base method.
-func (m *MockUserUseCase) Fetch(paginationRequest *dto.PaginationRequestParms) (*domain.Pagination, error) {
+func (m *MockUserUseCase) Fetch(paginationRequest *dto.PaginationRequestParms) (*domain.PaginationUsers, error) {
 	m.ctrl.T.Helper()
 	ret := m.ctrl.Call(m, "Fetch", paginationRequest)
-	ret0, _ := ret[0].(*domain.Pagination)
+	ret0, _ := ret[0].(*domain.PaginationUsers)
 	ret1, _ := ret[1].(error)
 	return ret0, ret1
 }
@@ -173,7 +173,7 @@ func (m *MockUserUseCase) SearchByEmail(email string) (domain.User, error) {
 }
 
 // SearchByEmail indicates an expected call of SearchByEmail.
-func (mr *MockUserUseCaseMockRecorder) SearchByEmail(email string) *gomock.Call {
+func (mr *MockUserUseCaseMockRecorder) SearchByEmail(email interface{}) *gomock.Call {
 	mr.mock.ctrl.T.Helper()
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "SearchByEmail", reflect.TypeOf((*MockUserUseCase)(nil).SearchByEmail), email)
 }
@@ -246,10 +246,10 @@ func (mr *MockUserRepositoryMockRecorder) Delete(id uint64) *gomock.Call {
 }
 
 // Fetch mocks base method.
-func (m *MockUserRepository) Fetch(paginationRequest *dto.PaginationRequestParms) (*domain.Pagination, error) {
+func (m *MockUserRepository) Fetch(paginationRequest *dto.PaginationRequestParms) (*domain.PaginationUsers, error) {
 	m.ctrl.T.Helper()
 	ret := m.ctrl.Call(m, "Fetch", paginationRequest)
-	ret0, _ := ret[0].(*domain.Pagination)
+	ret0, _ := ret[0].(*domain.PaginationUsers)
 	ret1, _ := ret[1].(error)
 	return ret0, ret1
 }
@@ -270,7 +270,7 @@ func (m *MockUserRepository) SearchByEmail(email string) (domain.User, error) {
 }
 
 // SearchByEmail indicates an expected call of SearchByEmail.
-func (mr *MockUserRepositoryMockRecorder) SearchByEmail(email string) *gomock.Call {
+func (mr *MockUserRepositoryMockRecorder) SearchByEmail(email interface{}) *gomock.Call {
 	mr.mock.ctrl.T.Helper()
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "SearchByEmail", reflect.TypeOf((*MockUserRepository)(nil).SearchByEmail), email)
 }

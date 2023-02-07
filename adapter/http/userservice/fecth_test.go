@@ -34,9 +34,9 @@ func TestFetch(t *testing.T) {
 	fakePaginationRequestParams, fakeUser, mock := setupFetch(t)
 	defer mock.Finish()
 	mockUserUseCase := mocks.NewMockUserUseCase(mock)
-	mockUserUseCase.EXPECT().Fetch(&fakePaginationRequestParams).Return(&domain.Pagination{
-		Items: []domain.User{fakeUser},
-		Total: 1,
+	mockUserUseCase.EXPECT().Fetch(&fakePaginationRequestParams).Return(&domain.PaginationUsers{
+		Users: []domain.User{fakeUser},
+		Page:  domain.Page{},
 	}, nil)
 
 	sut := userservice.New(mockUserUseCase)

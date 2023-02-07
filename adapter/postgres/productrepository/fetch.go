@@ -12,7 +12,9 @@ import (
 func (repository repository) Fetch(pagination *dto.PaginationRequestParms) (*domain.Pagination, error) {
 	ctx := context.Background()
 	products := []domain.Product{}
-	total := int32(0)
+	pageData := domain.Page{}
+	pageData.PageNumber = int32(pagination.Page)
+	pageData.Quantity = int32(pagination.ItemsPerPage)
 
 	query, queryCount, _ := paginate.Paginate("SELECT * FROM product").
 		Page(pagination.Page).
@@ -51,7 +53,7 @@ func (repository repository) Fetch(pagination *dto.PaginationRequestParms) (*dom
 	}
 
 	{
-		err := repository.db.QueryRow(ctx, *queryCount).Scan(&total)
+		err := repository.db.QueryRow(ctx, *queryCount).Scan(&pageData.Total)
 
 		if err != nil {
 			return nil, err
@@ -60,6 +62,6 @@ func (repository repository) Fetch(pagination *dto.PaginationRequestParms) (*dom
 
 	return &domain.Pagination{
 		Items: products,
-		Total: total,
+		Page:  pageData,
 	}, nil
 }

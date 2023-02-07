@@ -28,9 +28,9 @@ func TestFetch(t *testing.T) {
 	mockCtrl := gomock.NewController(t)
 	defer mockCtrl.Finish()
 	mockUserRepository := mocks.NewMockUserRepository(mockCtrl)
-	mockUserRepository.EXPECT().Fetch(&fakePaginationRequestParams).Return(&domain.Pagination{
-		Items: []domain.User{fakeDBUser},
-		Total: 1,
+	mockUserRepository.EXPECT().Fetch(&fakePaginationRequestParams).Return(&domain.PaginationUsers{
+		Users: []domain.User{fakeDBUser},
+		Page:  domain.Page{},
 	}, nil)
 
 	sut := userusecase.New(mockUserRepository)
@@ -38,7 +38,7 @@ func TestFetch(t *testing.T) {
 
 	require.Nil(t, err)
 
-	for _, User := range Users.Items.([]domain.User) {
+	for _, User := range Users.Users.([]domain.User) {
 		require.Nil(t, err)
 		require.NotEmpty(t, User.ID)
 		require.Equal(t, User.Name, fakeDBUser.Name)

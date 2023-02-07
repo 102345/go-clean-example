@@ -36,7 +36,7 @@ type UserUseCase interface {
 	Create(userRequest *dto.CreateUserRequest) (*User, error)
 	Update(userRequest *dto.UpdateUserRequest) (*User, error)
 	Delete(id uint64) error
-	Fetch(paginationRequest *dto.PaginationRequestParms) (*Pagination, error)
+	Fetch(paginationRequest *dto.PaginationRequestParms) (*PaginationUsers, error)
 	SearchByEmail(email string) (User, error)
 }
 
@@ -45,6 +45,6 @@ type UserRepository interface {
 	Create(userRequest *dto.CreateUserRequest) (*User, error)
 	Update(userRequest *dto.UpdateUserRequest) (*User, error)
 	Delete(id uint64) error
-	Fetch(paginationRequest *dto.PaginationRequestParms) (*Pagination, error)
+	Fetch(paginationRequest *dto.PaginationRequestParms) (*PaginationUsers, error)
 	SearchByEmail(email string) (User, error)
 }

@@ -3,7 +3,7 @@
       "url": "://postgres:scnfm@localhost:5432/devtodb"
     },
     "server": {
-      "port": "3000"
+      "port": "3001"
     },
     "tokenKey" :{
       "secretKey":"TESTECHAVE"

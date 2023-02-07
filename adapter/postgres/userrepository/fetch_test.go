@@ -54,7 +54,7 @@ func TestFetch(t *testing.T) {
 		t.Errorf("there were unfulfilled expectations: %s", err)
 	}
 
-	for _, User := range Users.Items.([]domain.User) {
+	for _, User := range Users.Users.([]domain.User) {
 		require.Nil(t, err)
 		require.NotEmpty(t, User.ID)
 		require.Equal(t, User.Name, fakeUserDBResponse.Name)

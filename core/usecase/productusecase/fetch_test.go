@@ -30,7 +30,7 @@ func TestFetch(t *testing.T) {
 	mockProductRepository := mocks.NewMockProductRepository(mockCtrl)
 	mockProductRepository.EXPECT().Fetch(&fakePaginationRequestParams).Return(&domain.Pagination{
 		Items: []domain.Product{fakeDBProduct},
-		Total: 1,
+		Page:  domain.Page{},
 	}, nil)
 
 	sut := productusecase.New(mockProductRepository)
