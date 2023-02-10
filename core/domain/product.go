@@ -20,6 +20,7 @@ type ProductService interface {
 	Update(response http.ResponseWriter, request *http.Request)
 	Delete(response http.ResponseWriter, request *http.Request)
 	Fetch(response http.ResponseWriter, request *http.Request)
+	FindById(response http.ResponseWriter, request *http.Request)
 }
 
 // ProductUseCase is a contract of business rule layer
@@ -28,6 +29,7 @@ type ProductUseCase interface {
 	Update(productRequest *dto.UpdateProductRequest) (*Product, error)
 	Delete(id uint64) error
 	Fetch(paginationRequest *dto.PaginationRequestParms) (*Pagination, error)
+	FindById(id uint64) (Product, error)
 }
 
 // ProductRepository is a contract of database connection adapter layer
@@ -36,4 +38,5 @@ type ProductRepository interface {
 	Update(productRequest *dto.UpdateProductRequest) (*Product, error)
 	Delete(id uint64) error
 	Fetch(paginationRequest *dto.PaginationRequestParms) (*Pagination, error)
+	FindById(id uint64) (Product, error)
 }

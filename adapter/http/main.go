@@ -81,6 +81,9 @@ func configureRouters(conn postgres.PoolInterface) *mux.Router {
 		"search", "{search}",
 	).Methods("GET")
 
+	router.Handle("/products/{product_id}",
+		http.HandlerFunc(authentication.Logger((authentication.Authenticate(productService.FindById, false))))).Methods("GET")
+
 	router.Handle("/users",
 		http.HandlerFunc(authentication.Logger((authentication.Authenticate(userService.Create, false))))).Methods("POST")
 	router.Handle("/login",
