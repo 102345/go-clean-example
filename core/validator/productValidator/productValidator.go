@@ -2,6 +2,7 @@ package productvalidator
 
 import (
 	"errors"
+	"strconv"
 	"strings"
 
 	"github.com/marc/go-clean-example/core/dto"
@@ -16,8 +17,8 @@ func ValidateInsert(productRequest *dto.CreateProductRequest) error {
 	if strings.Trim(productRequest.Name, "") == "" {
 		return errors.New("Product name is required")
 	}
-
-	if productRequest.Price <= 0 {
+	price, _ := strconv.ParseFloat(productRequest.Price, 64)
+	if price <= 0 {
 		return errors.New("Product price is required")
 	}
 
@@ -39,7 +40,8 @@ func ValidateUpdate(productRequest *dto.UpdateProductRequest) error {
 		return errors.New("Product name is required")
 	}
 
-	if productRequest.Price <= 0 {
+	price, _ := strconv.ParseFloat(productRequest.Price, 64)
+	if price <= 0 {
 		return errors.New("Product price is required")
 	}
 

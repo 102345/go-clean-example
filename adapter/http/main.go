@@ -42,14 +42,14 @@ func main() {
 
 	router := configureRouters(conn)
 
-	credentials := handlers.AllowCredentials()
+	//credentials := handlers.AllowCredentials()
+	headers := handlers.AllowedHeaders([]string{"Content-Type", "Authorization", "Origin", "X-Requested-With", "Accept"})
 	methods := handlers.AllowedMethods([]string{"POST", "PUT", "DELETE", "GET"})
-	//ttl := handlers.MaxAge(3600)
 	origins := handlers.AllowedOrigins([]string{"*"})
 
 	port := viper.GetString("server.port")
 	log.Printf("LISTEN ON PORT: %v", port)
-	http.ListenAndServe(fmt.Sprintf(":%v", port), handlers.CORS(credentials, methods, origins)(router))
+	http.ListenAndServe(fmt.Sprintf(":%v", port), handlers.CORS(methods, origins, headers)(router))
 }
 
 func configureRouters(conn postgres.PoolInterface) *mux.Router {
@@ -63,16 +63,16 @@ func configureRouters(conn postgres.PoolInterface) *mux.Router {
 
 	router.PathPrefix("/swagger").Handler(httpSwagger.WrapHandler)
 
-	router.Handle("/product",
-		http.HandlerFunc(authentication.Logger((authentication.Authenticate(productService.Create, true))))).Methods("POST")
+	router.Handle("/products",
+		http.HandlerFunc(authentication.Logger((authentication.Authenticate(productService.Create, false))))).Methods("POST")
 
-	router.Handle("/product/{product_id}",
+	router.Handle("/products/{product_id}",
 		http.HandlerFunc(authentication.Logger((authentication.Authenticate(productService.Update, true))))).Methods("PUT")
 
-	router.Handle("/product/{product_id}",
+	router.Handle("/products/{product_id}",
 		http.HandlerFunc(authentication.Logger((authentication.Authenticate(productService.Delete, true))))).Methods("DELETE")
 
-	router.Handle("/product",
+	router.Handle("/products",
 		http.HandlerFunc(authentication.Logger((authentication.Authenticate(productService.Fetch, false))))).Queries(
 		"page", "{page}",
 		"itemsPerPage", "{itemsPerPage}",
@@ -81,15 +81,15 @@ func configureRouters(conn postgres.PoolInterface) *mux.Router {
 		"search", "{search}",
 	).Methods("GET")
 
-	router.Handle("/user",
+	router.Handle("/users",
 		http.HandlerFunc(authentication.Logger((authentication.Authenticate(userService.Create, false))))).Methods("POST")
 	router.Handle("/login",
 		http.HandlerFunc(authentication.Logger((authentication.Authenticate(userService.Login, false))))).Methods("POST")
-	router.Handle("/user/{user_id}",
+	router.Handle("/users/{user_id}",
 		http.HandlerFunc(authentication.Logger((authentication.Authenticate(userService.Update, true))))).Methods("PUT")
-	router.Handle("/user/{user_id}",
+	router.Handle("/users/{user_id}",
 		http.HandlerFunc(authentication.Logger((authentication.Authenticate(userService.Delete, true))))).Methods("DELETE")
-	router.Handle("/user",
+	router.Handle("/users",
 		http.HandlerFunc(authentication.Logger((authentication.Authenticate(userService.Fetch, true))))).Queries(
 		"page", "{page}",
 		"itemsPerPage", "{itemsPerPage}",
