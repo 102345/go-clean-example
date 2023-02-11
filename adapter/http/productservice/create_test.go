@@ -29,7 +29,7 @@ func setupCreate(t *testing.T) (dto.CreateProductRequest, domain.Product, *gomoc
 
 func TestCreate(t *testing.T) {
 	fakeProductRequest, fakeProduct, mock := setupCreate(t)
-	fakeProductRequest.Price = "100"
+	//fakeProductRequest.Price = "100"
 	defer mock.Finish()
 	mockProductUseCase := mocks.NewMockProductUseCase(mock)
 	mockProductUseCase.EXPECT().Create(&fakeProductRequest).Return(&fakeProduct, nil)
@@ -97,7 +97,7 @@ func TestCreate_ErrorValidate(t *testing.T) {
 
 func TestCreate_ProductError(t *testing.T) {
 	fakeProductRequest, _, mock := setupCreate(t)
-	fakeProductRequest.Price = "100"
+	//fakeProductRequest.Price = "100"
 
 	defer mock.Finish()
 	mockProductUseCase := mocks.NewMockProductUseCase(mock)

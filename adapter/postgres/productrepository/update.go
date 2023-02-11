@@ -2,7 +2,6 @@ package productrepository
 
 import (
 	"context"
-	"strconv"
 
 	"github.com/marc/go-clean-example/core/domain"
 	"github.com/marc/go-clean-example/core/dto"
@@ -25,10 +24,10 @@ func (repository repository) Update(productRequest *dto.UpdateProductRequest) (*
 		return nil, err
 	}
 
-	price, _ := strconv.ParseFloat(productRequest.Price, 64)
+	//price, _ := strconv.ParseFloat(productRequest.Price, 64)
 	product.ID = productRequest.ID
 	product.Name = productRequest.Name
-	product.Price = price
+	product.Price = productRequest.Price
 	product.Description = productRequest.Description
 
 	return &product, nil
