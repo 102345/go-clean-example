@@ -72,6 +72,18 @@ func (mr *MockProductServiceMockRecorder) Fetch(response, request interface{}) *
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "Fetch", reflect.TypeOf((*MockProductService)(nil).Fetch), response, request)
 }
 
+// FindById mocks base method.
+func (m *MockProductService) FindById(response http.ResponseWriter, request *http.Request) {
+	m.ctrl.T.Helper()
+	m.ctrl.Call(m, "FindById", response, request)
+}
+
+// FindById indicates an expected call of FindById.
+func (mr *MockProductServiceMockRecorder) FindById(response, request interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "FindById", reflect.TypeOf((*MockProductService)(nil).FindById), response, request)
+}
+
 // Update mocks base method.
 func (m *MockProductService) Update(response http.ResponseWriter, request *http.Request) {
 	m.ctrl.T.Helper()
@@ -149,6 +161,21 @@ func (m *MockProductUseCase) Fetch(paginationRequest *dto.PaginationRequestParms
 func (mr *MockProductUseCaseMockRecorder) Fetch(paginationRequest interface{}) *gomock.Call {
 	mr.mock.ctrl.T.Helper()
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "Fetch", reflect.TypeOf((*MockProductUseCase)(nil).Fetch), paginationRequest)
+}
+
+// FindById mocks base method.
+func (m *MockProductUseCase) FindById(id uint64) (domain.Product, error) {
+	m.ctrl.T.Helper()
+	ret := m.ctrl.Call(m, "FindById", id)
+	ret0, _ := ret[0].(domain.Product)
+	ret1, _ := ret[1].(error)
+	return ret0, ret1
+}
+
+// FindById indicates an expected call of FindById.
+func (mr *MockProductUseCaseMockRecorder) FindById(id uint64) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "FindById", reflect.TypeOf((*MockProductUseCase)(nil).FindById), id)
 }
 
 // Update mocks base method.
@@ -231,6 +258,21 @@ func (m *MockProductRepository) Fetch(paginationRequest *dto.PaginationRequestPa
 func (mr *MockProductRepositoryMockRecorder) Fetch(paginationRequest interface{}) *gomock.Call {
 	mr.mock.ctrl.T.Helper()
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "Fetch", reflect.TypeOf((*MockProductRepository)(nil).Fetch), paginationRequest)
+}
+
+// FindById mocks base method.
+func (m *MockProductRepository) FindById(id uint64) (domain.Product, error) {
+	m.ctrl.T.Helper()
+	ret := m.ctrl.Call(m, "FindById", id)
+	ret0, _ := ret[0].(domain.Product)
+	ret1, _ := ret[1].(error)
+	return ret0, ret1
+}
+
+// FindById indicates an expected call of FindById.
+func (mr *MockProductRepositoryMockRecorder) FindById(id uint64) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "FindById", reflect.TypeOf((*MockProductRepository)(nil).FindById), id)
 }
 
 // Update mocks base method.

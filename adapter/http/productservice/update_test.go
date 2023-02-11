@@ -29,6 +29,7 @@ func setupUpdate(t *testing.T) (dto.UpdateProductRequest, domain.Product, *gomoc
 
 func TestUpdate(t *testing.T) {
 	fakeProductRequest, fakeProduct, mock := setupUpdate(t)
+	fakeProductRequest.Price = "100"
 	defer mock.Finish()
 	mockProductUseCase := mocks.NewMockProductUseCase(mock)
 	mockProductUseCase.EXPECT().Update(&fakeProductRequest).Return(&fakeProduct, nil)
@@ -96,6 +97,7 @@ func TestUpdate_ErrorValidate(t *testing.T) {
 
 func TestUpdate_ProductError(t *testing.T) {
 	fakeProductRequest, _, mock := setupUpdate(t)
+	fakeProductRequest.Price = "100"
 	defer mock.Finish()
 	mockProductUseCase := mocks.NewMockProductUseCase(mock)
 	mockProductUseCase.EXPECT().Update(&fakeProductRequest).Return(nil, fmt.Errorf("ANY ERROR"))

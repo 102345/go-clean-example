@@ -13,7 +13,7 @@ func (repository repository) FindById(id uint64) (domain.Product, error) {
 
 	row, erro := repository.db.Query(
 		ctx,
-		"select id, name, price, description from product where id = $1",
+		"select id, name, price, description from product where id =$1",
 		id,
 	)
 

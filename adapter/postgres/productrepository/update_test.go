@@ -3,6 +3,7 @@ package productrepository_test
 import (
 	"fmt"
 	"regexp"
+	"strconv"
 	"testing"
 
 	"github.com/bxcodec/faker/v3"
@@ -26,6 +27,8 @@ func setupUpdate() (dto.UpdateProductRequest, domain.Product, pgxmock.PgxPoolIfa
 
 func TestUpdate(t *testing.T) {
 	fakeProductRequest, _, mock := setupUpdate()
+	fakeProductRequest.Price = "10"
+	price, _ := strconv.ParseFloat(fakeProductRequest.Price, 64)
 	defer mock.Close()
 	mock.ExpectExec(regexp.QuoteMeta("Update product set name = $2, price = $3, description= $4 where id = $1")).WithArgs(
 		fakeProductRequest.ID,
@@ -45,7 +48,7 @@ func TestUpdate(t *testing.T) {
 	require.Nil(t, err)
 	require.Equal(t, product.ID, fakeProductRequest.ID)
 	require.Equal(t, product.Name, fakeProductRequest.Name)
-	require.Equal(t, product.Price, fakeProductRequest.Price)
+	require.Equal(t, product.Price, price)
 	require.Equal(t, product.Description, fakeProductRequest.Description)
 }
 
