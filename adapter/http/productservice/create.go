@@ -1,10 +1,10 @@
 package productservice
 
 import (
+	"log"
 	"net/http"
 
 	"github.com/marc/go-clean-example/core/dto"
-	productvalidator "github.com/marc/go-clean-example/core/validator/productValidator"
 	infrastructure "github.com/marc/go-clean-example/infra-structure"
 )
 
@@ -25,7 +25,8 @@ func (service service) Create(response http.ResponseWriter, request *http.Reques
 		return
 	}
 
-	if erro := productvalidator.ValidateInsert(productRequest); erro != nil {
+	if erro := productRequest.ValidateCreateRequest(); erro != nil {
+		log.Printf("Entrou no validate")
 		infrastructure.Erro(response, http.StatusBadRequest, erro)
 		return
 	}

@@ -5,7 +5,6 @@ import (
 	"strings"
 
 	"github.com/marc/go-clean-example/core/dto"
-	uservalidator "github.com/marc/go-clean-example/core/validator/userValidator"
 	infrastructure "github.com/marc/go-clean-example/infra-structure"
 	"github.com/marc/go-clean-example/infra-structure/middlewares/security"
 )
@@ -27,7 +26,7 @@ func (service service) Update(response http.ResponseWriter, request *http.Reques
 		return
 	}
 
-	if erro := uservalidator.ValidateUserUpdate(userRequest); erro != nil {
+	if erro := userRequest.ValidateUpdateUserRequest(); erro != nil {
 		infrastructure.Erro(response, http.StatusBadRequest, erro)
 		return
 	}

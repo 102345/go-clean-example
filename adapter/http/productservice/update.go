@@ -4,7 +4,6 @@ import (
 	"net/http"
 
 	"github.com/marc/go-clean-example/core/dto"
-	productvalidator "github.com/marc/go-clean-example/core/validator/productValidator"
 	infrastructure "github.com/marc/go-clean-example/infra-structure"
 )
 
@@ -24,7 +23,7 @@ func (service service) Update(response http.ResponseWriter, request *http.Reques
 		return
 	}
 
-	if erro := productvalidator.ValidateUpdate(productRequest); erro != nil {
+	if erro := productRequest.ValidateUpdateRequest(); erro != nil {
 		infrastructure.Erro(response, http.StatusBadRequest, erro)
 		return
 	}
