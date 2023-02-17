@@ -26,6 +26,7 @@ require (
 	github.com/gorilla/handlers v1.5.1 // indirect
 	github.com/josharian/intern v1.0.0 // indirect
 	github.com/mailru/easyjson v0.7.6 // indirect
+	github.com/streadway/amqp v1.0.0 // indirect
 	github.com/swaggo/files v0.0.0-20220610200504-28940afbdbfe // indirect
 	golang.org/x/net v0.5.0 // indirect
 	golang.org/x/tools v0.1.12 // indirect

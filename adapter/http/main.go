@@ -16,6 +16,7 @@ import (
 	httpSwagger "github.com/swaggo/http-swagger"
 
 	_ "github.com/marc/go-clean-example/adapter/http/docs"
+	"github.com/marc/go-clean-example/adapter/http/stockproductservice"
 )
 
 func init() {
@@ -100,6 +101,9 @@ func configureRouters(conn postgres.PoolInterface) *mux.Router {
 		"sort", "{sort}",
 		"search", "{search}",
 	).Methods("GET")
+
+	router.Handle("/stockproducts",
+		http.HandlerFunc(authentication.Logger((authentication.Authenticate(stockproductservice.SendMessageStockProduct, false))))).Methods("POST")
 
 	return router
 }

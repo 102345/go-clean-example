@@ -7,6 +7,8 @@
     },
     "tokenKey" :{
       "secretKey":"TESTECHAVE"
+    },
+    "rabbitMQ" :{
+      "connectionAMQP":"amqp://admin:quark@localhost:5672"
     }
-    
 }
