@@ -13,3 +13,20 @@ CREATE TABLE user_api
     password VARCHAR(3000) NOT NULL,
     "createdAt" TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP
 );
+
+CREATE TABLE stockproduct
+(
+    id SERIAL PRIMARY KEY NOT NULL,
+    productId integer NOT NULL,
+    quantity integer NOT NULL,
+    balance integer NOT NULL,
+	FOREIGN KEY (productId) REFERENCES product(id)
+);
+
+CREATE TABLE queue_message_process
+(
+    id SERIAL PRIMARY KEY NOT NULL,
+    message VARCHAR(250) NOT NULL,
+    result VARCHAR(2) NOT NULL,
+    "createdAt" TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP
+);
