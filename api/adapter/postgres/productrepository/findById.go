@@ -7,7 +7,7 @@ import (
 	"github.com/marc/go-clean-example/core/domain"
 )
 
-func (repository repository) FindById(id uint64) (domain.Product, error) {
+func (repository repository) FindById(id int64) (domain.Product, error) {
 
 	ctx := context.Background()
 

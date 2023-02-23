@@ -25,7 +25,7 @@ func (p CreateProductRequest) ValidateCreateRequest() error {
 
 // UpdateProductRequest is an representation request body to update a Product
 type UpdateProductRequest struct {
-	ID          int32   `json:"id,omitempty"`
+	ID          int64   `json:"id,omitempty"`
 	Name        string  `json:"name,omitempty"`
 	Price       float64 `json:"price,omitempty"`
 	Description string  `json:"description,omitempty"`

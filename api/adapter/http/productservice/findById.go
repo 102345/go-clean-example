@@ -12,7 +12,7 @@ func (service service) FindById(response http.ResponseWriter, request *http.Requ
 
 	parametros := mux.Vars(request)
 
-	productID, err := strconv.ParseUint(parametros["product_id"], 10, 64)
+	productID, err := strconv.ParseInt(parametros["product_id"], 10, 64)
 	if err != nil {
 		infrastructure.Erro(response, http.StatusBadRequest, err)
 		return

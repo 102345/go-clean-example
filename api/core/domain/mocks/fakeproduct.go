@@ -143,7 +143,7 @@ func (m *MockProductUseCase) Delete(id uint64) error {
 }
 
 // Delete indicates an expected call of Delete.
-func (mr *MockProductUseCaseMockRecorder) Delete(id uint64) *gomock.Call {
+func (mr *MockProductUseCaseMockRecorder) Delete(id interface{}) *gomock.Call {
 	mr.mock.ctrl.T.Helper()
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "Delete", reflect.TypeOf((*MockProductUseCase)(nil).Delete), id)
 }
@@ -164,7 +164,7 @@ func (mr *MockProductUseCaseMockRecorder) Fetch(paginationRequest interface{}) *
 }
 
 // FindById mocks base method.
-func (m *MockProductUseCase) FindById(id uint64) (domain.Product, error) {
+func (m *MockProductUseCase) FindById(id int64) (domain.Product, error) {
 	m.ctrl.T.Helper()
 	ret := m.ctrl.Call(m, "FindById", id)
 	ret0, _ := ret[0].(domain.Product)
@@ -173,7 +173,7 @@ func (m *MockProductUseCase) FindById(id uint64) (domain.Product, error) {
 }
 
 // FindById indicates an expected call of FindById.
-func (mr *MockProductUseCaseMockRecorder) FindById(id uint64) *gomock.Call {
+func (mr *MockProductUseCaseMockRecorder) FindById(id interface{}) *gomock.Call {
 	mr.mock.ctrl.T.Helper()
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "FindById", reflect.TypeOf((*MockProductUseCase)(nil).FindById), id)
 }
@@ -240,7 +240,7 @@ func (m *MockProductRepository) Delete(id uint64) error {
 }
 
 // Delete indicates an expected call of Delete.
-func (mr *MockProductRepositoryMockRecorder) Delete(id uint64) *gomock.Call {
+func (mr *MockProductRepositoryMockRecorder) Delete(id interface{}) *gomock.Call {
 	mr.mock.ctrl.T.Helper()
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "Delete", reflect.TypeOf((*MockProductRepository)(nil).Delete), id)
 }
@@ -261,7 +261,7 @@ func (mr *MockProductRepositoryMockRecorder) Fetch(paginationRequest interface{}
 }
 
 // FindById mocks base method.
-func (m *MockProductRepository) FindById(id uint64) (domain.Product, error) {
+func (m *MockProductRepository) FindById(id int64) (domain.Product, error) {
 	m.ctrl.T.Helper()
 	ret := m.ctrl.Call(m, "FindById", id)
 	ret0, _ := ret[0].(domain.Product)
@@ -270,7 +270,7 @@ func (m *MockProductRepository) FindById(id uint64) (domain.Product, error) {
 }
 
 // FindById indicates an expected call of FindById.
-func (mr *MockProductRepositoryMockRecorder) FindById(id uint64) *gomock.Call {
+func (mr *MockProductRepositoryMockRecorder) FindById(id interface{}) *gomock.Call {
 	mr.mock.ctrl.T.Helper()
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "FindById", reflect.TypeOf((*MockProductRepository)(nil).FindById), id)
 }

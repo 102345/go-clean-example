@@ -2,6 +2,7 @@ package productrepository_test
 
 import (
 	"fmt"
+	"regexp"
 	"testing"
 
 	"github.com/bxcodec/faker/v3"
@@ -25,6 +26,7 @@ func setupFindById() ([]string, domain.Product, pgxmock.PgxPoolIface) {
 
 func TestFindById(t *testing.T) {
 	cols, fakeProductDBResponse, mock := setupFindById()
+	fakeProductDBResponse.ID = 1
 	defer mock.Close()
 
 	rows := pgxmock.NewRows(cols).AddRow(
@@ -34,12 +36,12 @@ func TestFindById(t *testing.T) {
 		fakeProductDBResponse.Description,
 	)
 
-	mock.ExpectQuery("select id, name, price, description from product where id =$1").
-		WithArgs(1).
+	mock.ExpectQuery(regexp.QuoteMeta("select id, name, price, description from product where id =$1")).
+		WithArgs(fakeProductDBResponse.ID).
 		WillReturnRows(rows)
 
 	sut := productrepository.New(mock)
-	product, err := sut.FindById(1)
+	product, err := sut.FindById(fakeProductDBResponse.ID)
 
 	if err = mock.ExpectationsWereMet(); err != nil {
 		t.Errorf("there were unfulfilled expectations: %s", err)

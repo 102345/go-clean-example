@@ -8,7 +8,7 @@ import (
 
 // Product is entity of table product database column
 type Product struct {
-	ID          int32   `json:"id"`
+	ID          int64   `json:"id"`
 	Name        string  `json:"name"`
 	Price       float64 `json:"price"`
 	Description string  `json:"description"`
@@ -29,7 +29,7 @@ type ProductUseCase interface {
 	Update(productRequest *dto.UpdateProductRequest) (*Product, error)
 	Delete(id uint64) error
 	Fetch(paginationRequest *dto.PaginationRequestParms) (*Pagination, error)
-	FindById(id uint64) (Product, error)
+	FindById(id int64) (Product, error)
 }
 
 // ProductRepository is a contract of database connection adapter layer
@@ -38,5 +38,5 @@ type ProductRepository interface {
 	Update(productRequest *dto.UpdateProductRequest) (*Product, error)
 	Delete(id uint64) error
 	Fetch(paginationRequest *dto.PaginationRequestParms) (*Pagination, error)
-	FindById(id uint64) (Product, error)
+	FindById(id int64) (Product, error)
 }
