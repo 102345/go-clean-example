@@ -26,6 +26,7 @@ CREATE TABLE stockproduct
 CREATE TABLE queue_message_process
 (
     id SERIAL PRIMARY KEY NOT NULL,
+    queuemessage VARCHAR(250) NOT NULL,
     message VARCHAR(250) NOT NULL,
     result VARCHAR(2) NOT NULL,
     "createdAt" TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP
