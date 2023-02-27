@@ -41,19 +41,25 @@ func main() {
 	conn := postgres.GetConnection(ctx)
 	defer conn.Close()
 
-	router := configureRouters(conn)
+	router := configRouters(conn)
 
-	//credentials := handlers.AllowCredentials()
-	headers := handlers.AllowedHeaders([]string{"Content-Type", "Authorization", "Origin", "X-Requested-With", "Accept"})
-	methods := handlers.AllowedMethods([]string{"POST", "PUT", "DELETE", "GET"})
-	origins := handlers.AllowedOrigins([]string{"*"})
+	headers, methods, origins := configCORS()
 
 	port := viper.GetString("server.port")
 	log.Printf("LISTEN ON PORT: %v", port)
 	http.ListenAndServe(fmt.Sprintf(":%v", port), handlers.CORS(methods, origins, headers)(router))
 }
 
-func configureRouters(conn postgres.PoolInterface) *mux.Router {
+func configCORS() (handlers.CORSOption, handlers.CORSOption, handlers.CORSOption) {
+
+	headers := handlers.AllowedHeaders([]string{"Content-Type", "Authorization", "Origin", "X-Requested-With", "Accept"})
+	methods := handlers.AllowedMethods([]string{"POST", "PUT", "DELETE", "GET"})
+	origins := handlers.AllowedOrigins([]string{"*"})
+
+	return headers, methods, origins
+}
+
+func configRouters(conn postgres.PoolInterface) *mux.Router {
 
 	postgres.RunMigrations()
 
