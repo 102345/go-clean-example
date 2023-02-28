@@ -5,7 +5,7 @@ import (
 	"github.com/marc/go-clean-example/core/dto"
 )
 
-func (usecase usecase) Create(userRequest *dto.CreateUserRequest) (*domain.User, error) {
+func (usecase usecase) Create(userRequest *dto.CreateUserRequestDTO) (*domain.User, error) {
 	user, err := usecase.repository.Create(userRequest)
 
 	if err != nil {

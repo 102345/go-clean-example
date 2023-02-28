@@ -288,7 +288,7 @@ const docTemplate = `{
                         "in": "body",
                         "required": true,
                         "schema": {
-                            "$ref": "#/definitions/dto.UpdateUserRequest"
+                            "$ref": "#/definitions/dto.UpdateUserRequestDTO"
                         }
                     }
                 ],
@@ -473,7 +473,7 @@ const docTemplate = `{
                 }
             }
         },
-        "dto.UpdateUserRequest": {
+        "dto.UpdateUserRequestDTO": {
             "type": "object",
             "properties": {
                 "createAt": {

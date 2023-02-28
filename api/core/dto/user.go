@@ -10,7 +10,7 @@ import (
 )
 
 // CreateProductRequest is an representation request body to create a new User
-type CreateUserRequest struct {
+type CreateUserRequestDTO struct {
 	Name     string    `json:name`
 	Email    string    `json:email`
 	Password string    `json:password`
@@ -18,15 +18,15 @@ type CreateUserRequest struct {
 }
 
 // ValidateCreateUserRequest valid the rules on propertys
-func (u CreateUserRequest) ValidateCreateUserRequest() error {
+func (u CreateUserRequestDTO) ValidateCreateUserRequest() error {
 	return validation.ValidateStruct(&u,
 		validation.Field(&u.Name, validation.Required, validation.Length(5, 50)),
 		validation.Field(&u.Password, validation.Required, validation.Length(5, 20)),
 		validation.Field(&u.Email, validation.Required, is.Email))
 }
 
-// UpdateUserRequest is an representation request body to update a User
-type UpdateUserRequest struct {
+// UpdateUserRequestDTO is an representation request body to update a User
+type UpdateUserRequestDTO struct {
 	ID       int32     `json: id`
 	Name     string    `json:name,omitempty`
 	Email    string    `json:email,omitempty`
@@ -34,8 +34,8 @@ type UpdateUserRequest struct {
 	CreateAt time.Time `json:createdAt,omitempty`
 }
 
-// ValidateUpdateUserRequest valid the rules on propertys
-func (u UpdateUserRequest) ValidateUpdateUserRequest() error {
+// ValidateUpdateUserRequestDTO valid the rules on propertys
+func (u UpdateUserRequestDTO) ValidateUpdateUserRequest() error {
 	return validation.ValidateStruct(&u,
 		validation.Field(&u.ID, validation.Required, validation.NilOrNotEmpty),
 		validation.Field(&u.Name, validation.Required, validation.Length(5, 50)),
@@ -43,9 +43,9 @@ func (u UpdateUserRequest) ValidateUpdateUserRequest() error {
 		validation.Field(&u.Email, validation.Required, is.Email))
 }
 
-// FromJSONCreateUserRequest converts json body request to a CreateUserRequest struct
-func FromJSONCreateUserRequest(body io.Reader) (*CreateUserRequest, error) {
-	createUserRequest := CreateUserRequest{}
+// FromJSONCreateUserRequest converts json body request to a CreateUserRequestDTO struct
+func FromJSONCreateUserRequest(body io.Reader) (*CreateUserRequestDTO, error) {
+	createUserRequest := CreateUserRequestDTO{}
 	if err := json.NewDecoder(body).Decode(&createUserRequest); err != nil {
 		return nil, err
 	}
@@ -53,12 +53,12 @@ func FromJSONCreateUserRequest(body io.Reader) (*CreateUserRequest, error) {
 	return &createUserRequest, nil
 }
 
-// FromJSONUpdateUserRequest converts json body request to a UpdateUserRequest struct
-func FromJSONUpdateUserRequest(body io.Reader) (*UpdateUserRequest, error) {
-	updateUserRequest := UpdateUserRequest{}
-	if err := json.NewDecoder(body).Decode(&updateUserRequest); err != nil {
+// FromJSONUpdateUserRequestDTO converts json body request to a UpdateUserRequestDTODTO struct
+func FromJSONUpdateUserRequestDTO(body io.Reader) (*UpdateUserRequestDTO, error) {
+	UpdateUserRequestDTO := UpdateUserRequestDTO{}
+	if err := json.NewDecoder(body).Decode(&UpdateUserRequestDTO); err != nil {
 		return nil, err
 	}
 
-	return &updateUserRequest, nil
+	return &UpdateUserRequestDTO, nil
 }

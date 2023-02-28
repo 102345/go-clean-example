@@ -47,7 +47,7 @@ func (service service) Create(response http.ResponseWriter, request *http.Reques
 	infrastructure.JSON(response, http.StatusCreated, user)
 }
 
-func (service) formatUser(userRequest *dto.CreateUserRequest) error {
+func (service) formatUser(userRequest *dto.CreateUserRequestDTO) error {
 
 	passwordHash, erro := security.Hash(userRequest.Password)
 	if erro != nil {

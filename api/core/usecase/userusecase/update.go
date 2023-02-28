@@ -6,7 +6,7 @@ import (
 )
 
 // Update implements domain.UserUseCase
-func (usecase usecase) Update(userRequest *dto.UpdateUserRequest) (*domain.User, error) {
+func (usecase usecase) Update(userRequest *dto.UpdateUserRequestDTO) (*domain.User, error) {
 
 	user, err := usecase.repository.Update(userRequest)
 

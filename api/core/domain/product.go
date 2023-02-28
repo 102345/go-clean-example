@@ -25,8 +25,8 @@ type ProductService interface {
 
 // ProductUseCase is a contract of business rule layer
 type ProductUseCase interface {
-	Create(productRequest *dto.CreateProductRequest) (*Product, error)
-	Update(productRequest *dto.UpdateProductRequest) (*Product, error)
+	Create(productRequest *dto.CreateProductRequestDTO) (*Product, error)
+	Update(productRequest *dto.UpdateProductRequestDTO) (*Product, error)
 	Delete(id uint64) error
 	Fetch(paginationRequest *dto.PaginationRequestParms) (*Pagination, error)
 	FindById(id int64) (Product, error)
@@ -34,8 +34,8 @@ type ProductUseCase interface {
 
 // ProductRepository is a contract of database connection adapter layer
 type ProductRepository interface {
-	Create(productRequest *dto.CreateProductRequest) (*Product, error)
-	Update(productRequest *dto.UpdateProductRequest) (*Product, error)
+	Create(productRequest *dto.CreateProductRequestDTO) (*Product, error)
+	Update(productRequest *dto.UpdateProductRequestDTO) (*Product, error)
 	Delete(id uint64) error
 	Fetch(paginationRequest *dto.PaginationRequestParms) (*Pagination, error)
 	FindById(id int64) (Product, error)

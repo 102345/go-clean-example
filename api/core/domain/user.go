@@ -33,8 +33,8 @@ type UserService interface {
 
 // ProductUseCase is a contract of business rule layer
 type UserUseCase interface {
-	Create(userRequest *dto.CreateUserRequest) (*User, error)
-	Update(userRequest *dto.UpdateUserRequest) (*User, error)
+	Create(userRequest *dto.CreateUserRequestDTO) (*User, error)
+	Update(userRequest *dto.UpdateUserRequestDTO) (*User, error)
 	Delete(id uint64) error
 	Fetch(paginationRequest *dto.PaginationRequestParms) (*PaginationUsers, error)
 	SearchByEmail(email string) (User, error)
@@ -42,8 +42,8 @@ type UserUseCase interface {
 
 // UserRepository is a contract of database connection adapter layer
 type UserRepository interface {
-	Create(userRequest *dto.CreateUserRequest) (*User, error)
-	Update(userRequest *dto.UpdateUserRequest) (*User, error)
+	Create(userRequest *dto.CreateUserRequestDTO) (*User, error)
+	Update(userRequest *dto.UpdateUserRequestDTO) (*User, error)
 	Delete(id uint64) error
 	Fetch(paginationRequest *dto.PaginationRequestParms) (*PaginationUsers, error)
 	SearchByEmail(email string) (User, error)

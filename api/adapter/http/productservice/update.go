@@ -16,7 +16,7 @@ import (
 // @Success 200 {object} domain.Product
 // @Router /product/{product_id} [put]
 func (service service) Update(response http.ResponseWriter, request *http.Request) {
-	productRequest, err := dto.FromJSONUpdateProductRequest(request.Body)
+	productRequest, err := dto.FromJSONUpdateProductRequestDTO(request.Body)
 
 	if err != nil {
 		infrastructure.Erro(response, http.StatusBadRequest, err)

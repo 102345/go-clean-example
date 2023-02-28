@@ -12,7 +12,7 @@ import (
 )
 
 func TestFromJSONCreateUserRequest(t *testing.T) {
-	fakeItem := dto.CreateUserRequest{}
+	fakeItem := dto.CreateUserRequestDTO{}
 	faker.FakeData(&fakeItem)
 
 	json, err := json.Marshal(fakeItem)
@@ -33,14 +33,14 @@ func TestFromJSONCreateUserRequest_JSONDecodeError(t *testing.T) {
 	require.Nil(t, itemRequest)
 }
 
-func TestFromJSONUpdateUserRequest(t *testing.T) {
-	fakeItem := dto.UpdateUserRequest{}
+func TestFromJSONUpdateUserRequestDTO(t *testing.T) {
+	fakeItem := dto.UpdateUserRequestDTO{}
 	faker.FakeData(&fakeItem)
 
 	json, err := json.Marshal(fakeItem)
 	require.Nil(t, err)
 
-	itemRequest, err := dto.FromJSONUpdateUserRequest(strings.NewReader(string(json)))
+	itemRequest, err := dto.FromJSONUpdateUserRequestDTO(strings.NewReader(string(json)))
 
 	require.Nil(t, err)
 	require.Equal(t, itemRequest.ID, fakeItem.ID)
@@ -49,8 +49,8 @@ func TestFromJSONUpdateUserRequest(t *testing.T) {
 	require.Equal(t, itemRequest.Password, fakeItem.Password)
 }
 
-func TestFromJSONUpdateUserRequest_JSONDecodeError(t *testing.T) {
-	itemRequest, err := dto.FromJSONUpdateUserRequest(strings.NewReader("{"))
+func TestFromJSONUpdateUserRequestDTO_JSONDecodeError(t *testing.T) {
+	itemRequest, err := dto.FromJSONUpdateUserRequestDTO(strings.NewReader("{"))
 
 	require.NotNil(t, err)
 	require.Nil(t, itemRequest)

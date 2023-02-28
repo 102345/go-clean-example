@@ -14,12 +14,12 @@ import (
 // @Tags user
 // @Accept  json
 // @Produce  json
-// @Param user body dto.UpdateUserRequest true "user"
+// @Param user body dto.UpdateUserRequestDTO true "user"
 // @Success 200 {object} domain.User
 // @Router /user [put]
 func (service service) Update(response http.ResponseWriter, request *http.Request) {
 
-	userRequest, err := dto.FromJSONUpdateUserRequest(request.Body)
+	userRequest, err := dto.FromJSONUpdateUserRequestDTO(request.Body)
 
 	if err != nil {
 		infrastructure.Erro(response, http.StatusBadRequest, err)
@@ -47,7 +47,7 @@ func (service service) Update(response http.ResponseWriter, request *http.Reques
 	infrastructure.JSON(response, http.StatusOK, user)
 }
 
-func (service) formatUserUpdate(userRequest *dto.UpdateUserRequest) error {
+func (service) formatUserUpdate(userRequest *dto.UpdateUserRequestDTO) error {
 
 	passwordHash, erro := security.Hash(userRequest.Password)
 	if erro != nil {

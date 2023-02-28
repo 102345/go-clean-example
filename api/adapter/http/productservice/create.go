@@ -18,7 +18,7 @@ import (
 // @Router /product [post]
 func (service service) Create(response http.ResponseWriter, request *http.Request) {
 
-	productRequest, err := dto.FromJSONCreateProductRequest(request.Body)
+	productRequest, err := dto.FromJSONCreateProductRequestDTO(request.Body)
 
 	if err != nil {
 		infrastructure.Erro(response, http.StatusBadRequest, err)

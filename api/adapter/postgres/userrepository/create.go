@@ -7,7 +7,7 @@ import (
 	"github.com/marc/go-clean-example/core/dto"
 )
 
-func (repository repository) Create(userRequest *dto.CreateUserRequest) (*domain.User, error) {
+func (repository repository) Create(userRequest *dto.CreateUserRequestDTO) (*domain.User, error) {
 	ctx := context.Background()
 	user := domain.User{}
 

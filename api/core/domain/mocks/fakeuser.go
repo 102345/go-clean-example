@@ -120,7 +120,7 @@ func (m *MockUserUseCase) EXPECT() *MockUserUseCaseMockRecorder {
 }
 
 // Create mocks base method.
-func (m *MockUserUseCase) Create(userRequest *dto.CreateUserRequest) (*domain.User, error) {
+func (m *MockUserUseCase) Create(userRequest *dto.CreateUserRequestDTO) (*domain.User, error) {
 	m.ctrl.T.Helper()
 	ret := m.ctrl.Call(m, "Create", userRequest)
 	ret0, _ := ret[0].(*domain.User)
@@ -143,7 +143,7 @@ func (m *MockUserUseCase) Delete(id uint64) error {
 }
 
 // Delete indicates an expected call of Delete.
-func (mr *MockUserUseCaseMockRecorder) Delete(id uint64) *gomock.Call {
+func (mr *MockUserUseCaseMockRecorder) Delete(id interface{}) *gomock.Call {
 	mr.mock.ctrl.T.Helper()
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "Delete", reflect.TypeOf((*MockUserUseCase)(nil).Delete), id)
 }
@@ -179,7 +179,7 @@ func (mr *MockUserUseCaseMockRecorder) SearchByEmail(email interface{}) *gomock.
 }
 
 // Update mocks base method.
-func (m *MockUserUseCase) Update(userRequest *dto.UpdateUserRequest) (*domain.User, error) {
+func (m *MockUserUseCase) Update(userRequest *dto.UpdateUserRequestDTO) (*domain.User, error) {
 	m.ctrl.T.Helper()
 	ret := m.ctrl.Call(m, "Update", userRequest)
 	ret0, _ := ret[0].(*domain.User)
@@ -217,7 +217,7 @@ func (m *MockUserRepository) EXPECT() *MockUserRepositoryMockRecorder {
 }
 
 // Create mocks base method.
-func (m *MockUserRepository) Create(userRequest *dto.CreateUserRequest) (*domain.User, error) {
+func (m *MockUserRepository) Create(userRequest *dto.CreateUserRequestDTO) (*domain.User, error) {
 	m.ctrl.T.Helper()
 	ret := m.ctrl.Call(m, "Create", userRequest)
 	ret0, _ := ret[0].(*domain.User)
@@ -240,7 +240,7 @@ func (m *MockUserRepository) Delete(id uint64) error {
 }
 
 // Delete indicates an expected call of Delete.
-func (mr *MockUserRepositoryMockRecorder) Delete(id uint64) *gomock.Call {
+func (mr *MockUserRepositoryMockRecorder) Delete(id interface{}) *gomock.Call {
 	mr.mock.ctrl.T.Helper()
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "Delete", reflect.TypeOf((*MockUserRepository)(nil).Delete), id)
 }
@@ -276,7 +276,7 @@ func (mr *MockUserRepositoryMockRecorder) SearchByEmail(email interface{}) *gomo
 }
 
 // Update mocks base method.
-func (m *MockUserRepository) Update(userRequest *dto.UpdateUserRequest) (*domain.User, error) {
+func (m *MockUserRepository) Update(userRequest *dto.UpdateUserRequestDTO) (*domain.User, error) {
 	m.ctrl.T.Helper()
 	ret := m.ctrl.Call(m, "Update", userRequest)
 	ret0, _ := ret[0].(*domain.User)

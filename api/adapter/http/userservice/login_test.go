@@ -17,8 +17,8 @@ import (
 	"github.com/marc/go-clean-example/infra-structure/middlewares/security"
 )
 
-func setupLogin(t *testing.T) (dto.CreateUserRequest, domain.User, *gomock.Controller) {
-	fakeUserRequest := dto.CreateUserRequest{}
+func setupLogin(t *testing.T) (dto.CreateUserRequestDTO, domain.User, *gomock.Controller) {
+	fakeUserRequest := dto.CreateUserRequestDTO{}
 	faker.FakeData(&fakeUserRequest)
 
 	fakeUser := domain.User{}

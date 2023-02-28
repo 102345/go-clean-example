@@ -14,7 +14,7 @@ import (
 )
 
 func TestCreate(t *testing.T) {
-	fakeRequestUser := dto.CreateUserRequest{}
+	fakeRequestUser := dto.CreateUserRequestDTO{}
 	fakeDBUser := domain.User{}
 	faker.FakeData(&fakeRequestUser)
 	faker.FakeData(&fakeDBUser)
@@ -35,7 +35,7 @@ func TestCreate(t *testing.T) {
 }
 
 func TestCreate_Error(t *testing.T) {
-	fakeRequestUser := dto.CreateUserRequest{}
+	fakeRequestUser := dto.CreateUserRequestDTO{}
 	faker.FakeData(&fakeRequestUser)
 
 	mockCtrl := gomock.NewController(t)

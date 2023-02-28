@@ -280,7 +280,7 @@
                         "in": "body",
                         "required": true,
                         "schema": {
-                            "$ref": "#/definitions/dto.UpdateUserRequest"
+                            "$ref": "#/definitions/dto.UpdateUserRequestDTO"
                         }
                     }
                 ],
@@ -465,7 +465,7 @@
                 }
             }
         },
-        "dto.UpdateUserRequest": {
+        "dto.UpdateUserRequestDTO": {
             "type": "object",
             "properties": {
                 "createAt": {

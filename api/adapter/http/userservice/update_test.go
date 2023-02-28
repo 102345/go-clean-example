@@ -16,8 +16,8 @@ import (
 	"github.com/marc/go-clean-example/core/dto"
 )
 
-func setupUpdate(t *testing.T) (dto.UpdateUserRequest, domain.User, *gomock.Controller) {
-	fakeUserRequest := dto.UpdateUserRequest{}
+func setupUpdate(t *testing.T) (dto.UpdateUserRequestDTO, domain.User, *gomock.Controller) {
+	fakeUserRequest := dto.UpdateUserRequestDTO{}
 	fakeUser := domain.User{}
 	faker.FakeData(&fakeUserRequest)
 	faker.FakeData(&fakeUser)

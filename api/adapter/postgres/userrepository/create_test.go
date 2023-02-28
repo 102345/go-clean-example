@@ -12,9 +12,9 @@ import (
 	"github.com/stretchr/testify/require"
 )
 
-func setupCreate() ([]string, dto.CreateUserRequest, domain.User, pgxmock.PgxPoolIface) {
+func setupCreate() ([]string, dto.CreateUserRequestDTO, domain.User, pgxmock.PgxPoolIface) {
 	cols := []string{"id", "name", "email", "password", "created_at"}
-	fakeUserRequest := dto.CreateUserRequest{}
+	fakeUserRequest := dto.CreateUserRequestDTO{}
 	fakeUserDBResponse := domain.User{}
 	faker.FakeData(&fakeUserRequest)
 	faker.FakeData(&fakeUserDBResponse)

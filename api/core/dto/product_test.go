@@ -12,13 +12,13 @@ import (
 )
 
 func TestFromJSONCreateProductRequest(t *testing.T) {
-	fakeItem := dto.CreateProductRequest{}
+	fakeItem := dto.CreateProductRequestDTO{}
 	faker.FakeData(&fakeItem)
 
 	json, err := json.Marshal(fakeItem)
 	require.Nil(t, err)
 
-	itemRequest, err := dto.FromJSONCreateProductRequest(strings.NewReader(string(json)))
+	itemRequest, err := dto.FromJSONCreateProductRequestDTO(strings.NewReader(string(json)))
 
 	require.Nil(t, err)
 	require.Equal(t, itemRequest.Name, fakeItem.Name)
@@ -27,20 +27,20 @@ func TestFromJSONCreateProductRequest(t *testing.T) {
 }
 
 func TestFromJSONCreateProductRequest_JSONDecodeError(t *testing.T) {
-	itemRequest, err := dto.FromJSONCreateProductRequest(strings.NewReader("{"))
+	itemRequest, err := dto.FromJSONCreateProductRequestDTO(strings.NewReader("{"))
 
 	require.NotNil(t, err)
 	require.Nil(t, itemRequest)
 }
 
 func TestFromJSONUpdateProductRequest(t *testing.T) {
-	fakeItem := dto.UpdateProductRequest{}
+	fakeItem := dto.UpdateProductRequestDTO{}
 	faker.FakeData(&fakeItem)
 
 	json, err := json.Marshal(fakeItem)
 	require.Nil(t, err)
 
-	itemRequest, err := dto.FromJSONUpdateProductRequest(strings.NewReader(string(json)))
+	itemRequest, err := dto.FromJSONUpdateProductRequestDTO(strings.NewReader(string(json)))
 
 	require.Nil(t, err)
 	require.Equal(t, itemRequest.ID, fakeItem.ID)
@@ -50,7 +50,7 @@ func TestFromJSONUpdateProductRequest(t *testing.T) {
 }
 
 func TestFromJSONUpdateProductRequest_JSONDecodeError(t *testing.T) {
-	itemRequest, err := dto.FromJSONUpdateProductRequest(strings.NewReader("{"))
+	itemRequest, err := dto.FromJSONUpdateProductRequestDTO(strings.NewReader("{"))
 
 	require.NotNil(t, err)
 	require.Nil(t, itemRequest)

@@ -16,8 +16,8 @@ import (
 	"github.com/marc/go-clean-example/core/dto"
 )
 
-func setupCreate(t *testing.T) (dto.CreateProductRequest, domain.Product, *gomock.Controller) {
-	fakeProductRequest := dto.CreateProductRequest{}
+func setupCreate(t *testing.T) (dto.CreateProductRequestDTO, domain.Product, *gomock.Controller) {
+	fakeProductRequest := dto.CreateProductRequestDTO{}
 	fakeProduct := domain.Product{}
 	faker.FakeData(&fakeProductRequest)
 	faker.FakeData(&fakeProduct)

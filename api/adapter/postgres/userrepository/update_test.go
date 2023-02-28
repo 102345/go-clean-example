@@ -13,8 +13,8 @@ import (
 	"github.com/stretchr/testify/require"
 )
 
-func setupUpdate() (dto.UpdateUserRequest, domain.User, pgxmock.PgxPoolIface) {
-	fakeUserRequest := dto.UpdateUserRequest{}
+func setupUpdate() (dto.UpdateUserRequestDTO, domain.User, pgxmock.PgxPoolIface) {
+	fakeUserRequest := dto.UpdateUserRequestDTO{}
 	fakeUserDBResponse := domain.User{}
 	faker.FakeData(&fakeUserRequest)
 	faker.FakeData(&fakeUserDBResponse)
@@ -52,7 +52,7 @@ func TestUpdate(t *testing.T) {
 func TestUpdate_DBError(t *testing.T) {
 	_, _, mock := setupUpdate()
 
-	fakeUserRequestUpdate := dto.UpdateUserRequest{}
+	fakeUserRequestUpdate := dto.UpdateUserRequestDTO{}
 	defer mock.Close()
 
 	mock.ExpectExec(regexp.QuoteMeta("Update user_api set name = $2, email = $3, password= $4 where id = $1")).WithArgs(

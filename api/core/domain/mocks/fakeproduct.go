@@ -120,7 +120,7 @@ func (m *MockProductUseCase) EXPECT() *MockProductUseCaseMockRecorder {
 }
 
 // Create mocks base method.
-func (m *MockProductUseCase) Create(productRequest *dto.CreateProductRequest) (*domain.Product, error) {
+func (m *MockProductUseCase) Create(productRequest *dto.CreateProductRequestDTO) (*domain.Product, error) {
 	m.ctrl.T.Helper()
 	ret := m.ctrl.Call(m, "Create", productRequest)
 	ret0, _ := ret[0].(*domain.Product)
@@ -179,7 +179,7 @@ func (mr *MockProductUseCaseMockRecorder) FindById(id interface{}) *gomock.Call 
 }
 
 // Update mocks base method.
-func (m *MockProductUseCase) Update(productRequest *dto.UpdateProductRequest) (*domain.Product, error) {
+func (m *MockProductUseCase) Update(productRequest *dto.UpdateProductRequestDTO) (*domain.Product, error) {
 	m.ctrl.T.Helper()
 	ret := m.ctrl.Call(m, "Update", productRequest)
 	ret0, _ := ret[0].(*domain.Product)
@@ -217,7 +217,7 @@ func (m *MockProductRepository) EXPECT() *MockProductRepositoryMockRecorder {
 }
 
 // Create mocks base method.
-func (m *MockProductRepository) Create(productRequest *dto.CreateProductRequest) (*domain.Product, error) {
+func (m *MockProductRepository) Create(productRequest *dto.CreateProductRequestDTO) (*domain.Product, error) {
 	m.ctrl.T.Helper()
 	ret := m.ctrl.Call(m, "Create", productRequest)
 	ret0, _ := ret[0].(*domain.Product)
@@ -276,7 +276,7 @@ func (mr *MockProductRepositoryMockRecorder) FindById(id interface{}) *gomock.Ca
 }
 
 // Update mocks base method.
-func (m *MockProductRepository) Update(productRequest *dto.UpdateProductRequest) (*domain.Product, error) {
+func (m *MockProductRepository) Update(productRequest *dto.UpdateProductRequestDTO) (*domain.Product, error) {
 	m.ctrl.T.Helper()
 	ret := m.ctrl.Call(m, "Update", productRequest)
 	ret0, _ := ret[0].(*domain.Product)

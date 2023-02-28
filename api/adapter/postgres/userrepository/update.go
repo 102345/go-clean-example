@@ -7,7 +7,7 @@ import (
 	"github.com/marc/go-clean-example/core/dto"
 )
 
-func (repository repository) Update(userRequest *dto.UpdateUserRequest) (*domain.User, error) {
+func (repository repository) Update(userRequest *dto.UpdateUserRequestDTO) (*domain.User, error) {
 	ctx := context.Background()
 	user := domain.User{}
 

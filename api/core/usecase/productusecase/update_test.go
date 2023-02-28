@@ -14,7 +14,7 @@ import (
 )
 
 func TestUpdate(t *testing.T) {
-	fakeRequestProduct := dto.UpdateProductRequest{}
+	fakeRequestProduct := dto.UpdateProductRequestDTO{}
 	fakeDBProduct := domain.Product{}
 	faker.FakeData(&fakeRequestProduct)
 	faker.FakeData(&fakeDBProduct)
@@ -35,7 +35,7 @@ func TestUpdate(t *testing.T) {
 }
 
 func TestUpdate_Error(t *testing.T) {
-	fakeRequestProduct := dto.UpdateProductRequest{}
+	fakeRequestProduct := dto.UpdateProductRequestDTO{}
 	faker.FakeData(&fakeRequestProduct)
 
 	mockCtrl := gomock.NewController(t)
