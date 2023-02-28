@@ -28,7 +28,11 @@ func SendMessageStockProduct(response http.ResponseWriter, request *http.Request
 	text := string(bytes)
 	message := fmt.Sprint(text)
 
-	configRabbitMQServiceApp.PublishMessage(conn, channel, queue, message)
+	err = configRabbitMQServiceApp.PublishMessage(conn, channel, queue, message)
+	if err != nil {
+		infrastructure.Erro(response, http.StatusInternalServerError, err)
+		return
+	}
 
 	infrastructure.JSON(response, http.StatusOK, nil)
 

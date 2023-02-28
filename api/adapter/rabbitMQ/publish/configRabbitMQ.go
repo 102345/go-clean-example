@@ -4,14 +4,20 @@ import (
 	"log"
 	"time"
 
+	"github.com/avast/retry-go"
 	"github.com/spf13/viper"
 	"github.com/streadway/amqp"
 )
 
 type IConfigRabbitMQService interface {
 	ConfigRabbitMQ(queue string) (*amqp.Connection, *amqp.Channel, amqp.Queue, error)
-	PublishMessage(conn *amqp.Connection, channel *amqp.Channel, queue amqp.Queue, message string)
+	PublishMessage(conn *amqp.Connection, channel *amqp.Channel, queue amqp.Queue, message string) error
 }
+
+const (
+	MaxRetriesPublishMessage = 3
+	RetryDelayPublishMessage = 1 * time.Second
+)
 
 type ConfigRabbitMQService struct{}
 
@@ -52,7 +58,7 @@ func (config *ConfigRabbitMQService) ConfigRabbitMQ(queue string) (*amqp.Connect
 
 }
 
-func (config *ConfigRabbitMQService) PublishMessage(conn *amqp.Connection, channel *amqp.Channel, queue amqp.Queue, message string) {
+func (config *ConfigRabbitMQService) PublishMessage(conn *amqp.Connection, channel *amqp.Channel, queue amqp.Queue, message string) error {
 
 	msg := amqp.Publishing{
 		Headers:         map[string]interface{}{},
@@ -70,7 +76,31 @@ func (config *ConfigRabbitMQService) PublishMessage(conn *amqp.Connection, chann
 		AppId:           "go-clean-example",
 		Body:            []byte(message),
 	}
-	channel.Publish("", queue.Name, false, false, msg)
-	conn.Close()
+
+	errRetryFail := retry.Do(
+		func() error {
+
+			// _, erroTest := strconv.ParseUint("ABC", 10, 64)
+			// if erroTest != nil {
+			// return erroTest
+			// }
+
+			err1 := channel.Publish("", queue.Name, false, false, msg)
+			if err1 != nil {
+				return err1
+			}
+
+			return nil
+
+		}, retry.Attempts(MaxRetriesPublishMessage),
+		retry.Delay(RetryDelayPublishMessage),
+	)
+
+	if errRetryFail != nil {
+		log.Printf("Exceeded number of message publishing attempts")
+		return errRetryFail
+	}
+
+	return nil
 
 }

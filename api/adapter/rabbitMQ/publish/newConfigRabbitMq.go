@@ -18,6 +18,6 @@ func (app *RabbitMQApp) ConfigRabbitMQ(queue string) (*amqp.Connection, *amqp.Ch
 	return app.configRabbitMQService.ConfigRabbitMQ(queue)
 }
 
-func (app *RabbitMQApp) PublishMessage(conn *amqp.Connection, channel *amqp.Channel, queue amqp.Queue, message string) {
-	app.configRabbitMQService.PublishMessage(conn, channel, queue, message)
+func (app *RabbitMQApp) PublishMessage(conn *amqp.Connection, channel *amqp.Channel, queue amqp.Queue, message string) error {
+	return app.configRabbitMQService.PublishMessage(conn, channel, queue, message)
 }
