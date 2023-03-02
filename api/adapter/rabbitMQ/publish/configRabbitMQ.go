@@ -35,24 +35,40 @@ func (config *ConfigRabbitMQService) ConfigRabbitMQ(queue string) (*amqp.Connect
 		return nil, nil, amqp.Queue{}, err
 	}
 
+	err, args := configDeadLetterStrategy(ch)
+	if err != nil {
+		return nil, nil, amqp.Queue{}, err
+	}
+
+	err = ch.ExchangeDeclare("ExchangeStockProduct", "fanout", true, false, false, false, nil)
+	if err != nil {
+		log.Printf("Error ExchangeStockProduct Declare RabbitMQ: %s", err.Error())
+		return nil, nil, amqp.Queue{}, err
+	}
+
 	q, err := ch.QueueDeclare(
 		queue, //name string,
 		true,  // durable bool,
 		false, // autodelete
 		false, // exclusive
 		false, // nowait
-		nil)   // args
+		args)  // args
 	if err != nil {
 		log.Printf("Error Queue Declare  RabbitMQ: %s", err.Error())
 		return nil, nil, amqp.Queue{}, err
 	}
 
-	ch.QueueBind(
-		q.Name,       //name string,
-		"",           //key string,
-		"amq.fanout", //exchange string
-		false,        //noWait bool,
-		nil)          //args amqp.Table
+	err = ch.QueueBind(
+		q.Name,                 //name string,
+		"KeyStockProduct",      //key string,
+		"ExchangeStockProduct", //exchange string
+		false,                  //noWait bool,
+		args)                   //args amqp.Table
+
+	if err != nil {
+		log.Printf("Error Queue Bind StockProduct Declare RabbitMQ: %s", err.Error())
+		return nil, nil, amqp.Queue{}, err
+	}
 
 	return conn, ch, q, nil
 
@@ -103,4 +119,32 @@ func (config *ConfigRabbitMQService) PublishMessage(conn *amqp.Connection, chann
 
 	return nil
 
+}
+
+func configDeadLetterStrategy(ch *amqp.Channel) (error, amqp.Table) {
+
+	err := ch.ExchangeDeclare("DeadLetterExchangeStockProduct", "fanout", true, false, false, false, nil)
+	if err != nil {
+		log.Printf("Error Exchange Declare RabbitMQ: %s", err.Error())
+		return err, nil
+	}
+
+	_, err = ch.QueueDeclare("DeadLetterQueueStockProduct", true, false, false, false, nil)
+	if err != nil {
+		log.Printf("Error Queue Dead Letter StockProduct Declare RabbitMQ: %s", err.Error())
+		return err, nil
+	}
+
+	err = ch.QueueBind("DeadLetterQueueStockProduct", "DeadLetterKeyStockProduct",
+		"DeadLetterExchangeStockProduct", false, nil)
+	if err != nil {
+		log.Printf("Error Queue Bind Dead Letter StockProduct Declare RabbitMQ: %s", err.Error())
+		return err, nil
+	}
+	args := make(amqp.Table)
+
+	args["x-dead-letter-exchange"] = "DeadLetterExchangeStockProduct"
+	args["x-dead-letter-routing-key"] = "DeadLetterKeyStockProduct"
+
+	return nil, args
 }
