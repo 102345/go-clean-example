@@ -40,33 +40,8 @@ func (config *ConfigRabbitMQService) ConfigRabbitMQ(queue string) (*amqp.Connect
 		return nil, nil, amqp.Queue{}, err
 	}
 
-	err = ch.ExchangeDeclare("ExchangeStockProduct", "fanout", true, false, false, false, nil)
+	err, q := configQueueStrategy(ch, queue, args)
 	if err != nil {
-		log.Printf("Error ExchangeStockProduct Declare RabbitMQ: %s", err.Error())
-		return nil, nil, amqp.Queue{}, err
-	}
-
-	q, err := ch.QueueDeclare(
-		queue, //name string,
-		true,  // durable bool,
-		false, // autodelete
-		false, // exclusive
-		false, // nowait
-		args)  // args
-	if err != nil {
-		log.Printf("Error Queue Declare  RabbitMQ: %s", err.Error())
-		return nil, nil, amqp.Queue{}, err
-	}
-
-	err = ch.QueueBind(
-		q.Name,                 //name string,
-		"KeyStockProduct",      //key string,
-		"ExchangeStockProduct", //exchange string
-		false,                  //noWait bool,
-		args)                   //args amqp.Table
-
-	if err != nil {
-		log.Printf("Error Queue Bind StockProduct Declare RabbitMQ: %s", err.Error())
 		return nil, nil, amqp.Queue{}, err
 	}
 
@@ -118,6 +93,40 @@ func (config *ConfigRabbitMQService) PublishMessage(conn *amqp.Connection, chann
 	}
 
 	return nil
+
+}
+
+func configQueueStrategy(ch *amqp.Channel, queue string, args amqp.Table) (error, amqp.Queue) {
+
+	err := ch.ExchangeDeclare("ExchangeStockProduct", "fanout", true, false, false, false, nil)
+	if err != nil {
+		log.Printf("Error ExchangeStockProduct Declare RabbitMQ: %s", err.Error())
+		return err, amqp.Queue{}
+	}
+	q, err := ch.QueueDeclare(
+		queue, //name string,
+		true,  // durable bool,
+		false, // autodelete
+		false, // exclusive
+		false, // nowait
+		args)  // args
+	if err != nil {
+		log.Printf("Error Queue Declare  RabbitMQ: %s", err.Error())
+		return err, amqp.Queue{}
+	}
+
+	err = ch.QueueBind(
+		q.Name,                 //name string,
+		"KeyStockProduct",      //key string,
+		"ExchangeStockProduct", //exchange string
+		false,                  //noWait bool,
+		args)                   //args amqp.Table
+	if err != nil {
+		log.Printf("Error Queue Bind StockProduct Declare RabbitMQ: %s", err.Error())
+		return err, amqp.Queue{}
+	}
+
+	return nil, q
 
 }
 
