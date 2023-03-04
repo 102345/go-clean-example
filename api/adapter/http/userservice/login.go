@@ -6,9 +6,9 @@ import (
 	"net/http"
 	"strconv"
 
+	"github.com/102345/authenticationJWT/authenticationJWT"
 	"github.com/marc/go-clean-example/core/domain"
 	infrastructure "github.com/marc/go-clean-example/infra-structure"
-	"github.com/marc/go-clean-example/infra-structure/middlewares/authentication"
 	"github.com/marc/go-clean-example/infra-structure/middlewares/security"
 )
 
@@ -46,7 +46,7 @@ func (service service) Login(response http.ResponseWriter, request *http.Request
 		return
 	}
 
-	token, _ := authentication.CreateToken(uint64(userDatabase.ID))
+	token, _ := authenticationJWT.CreateToken(uint64(userDatabase.ID))
 
 	userID := strconv.FormatUint(uint64(userDatabase.ID), 10)
 
